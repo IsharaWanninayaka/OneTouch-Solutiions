@@ -58,8 +58,8 @@ function Contact() {
     setLoading(true);
     try {
       await emailjs.send(
-        "service_c2sxrda",
-        "template_tgt14k5",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE1_ID,
         {
           name: formData.name,
           contactNo: formData.contactNo,
@@ -67,7 +67,7 @@ function Contact() {
           company: formData.company,
           message: formData.message,
         },
-        "PF0NG5gw1-9hWgZP1"
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
 
       setShowSuccessAlert(true);

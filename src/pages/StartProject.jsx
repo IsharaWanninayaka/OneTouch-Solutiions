@@ -115,9 +115,9 @@ function StartProject() {
     setIsSending(true);
 
     // EmailJS configuration
-    const serviceId = "service_c2sxrda";
-    const templateId = "template_309z6ld";
-    const publicKey = "PF0NG5gw1-9hWgZP1";
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE2_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
     const templateParams = {
       name: formData.name,

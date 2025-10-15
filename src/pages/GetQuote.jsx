@@ -113,10 +113,10 @@ function GetQuote() {
 
     try {
       await emailjs.send(
-        "service_c2sxrda",
-        "template_309z6ld",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE2_ID,
         formData,
-        "PF0NG5gw1-9hWgZP1"
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
 
       setShowSuccessAlert(true);
