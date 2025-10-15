@@ -7,7 +7,7 @@ function LearnMoreAboutUs() {
     {
       name: "D.L Somarathna",
       role: "Founder",
-      image: "/images/dinesh.png",
+      image: "/images/dinesh.jpg",
       bio: "With over 15 years of experience in business strategy and leadership, His strategic mindset and commitment to excellence have guided multiple teams toward building impactful digital solutions.",
       social: {
         linkedin: "#",
@@ -29,7 +29,7 @@ function LearnMoreAboutUs() {
     {
       name: "W.M.I.S Wanninayaka",
       role: "Lead Developer",
-      image: "/images/ishara.png",
+      image: "/images/ishara.jpg",
       bio: "Vision-driven entrepreneur with a strong foundation in software development and management. Passionate about innovation, delivering real impact for clients.",
       social: {
         linkedin: "#",
@@ -51,7 +51,7 @@ function LearnMoreAboutUs() {
     {
       name: "R.A Lakmal",
       role: "Lead Developer",
-      image: "/images/anushka.png",
+      image: "/images/anushka.jpg",
       bio: "Specialized in modern frontend technologies and UI/UX design. Skilled at crafting responsive, user-friendly interfaces while maintaining strong testing and quality standards.",
       social: {
         linkedin: "#",
