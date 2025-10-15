@@ -40,7 +40,7 @@ function Hero() {
                   <div className="flex items-center justify-center w-48 h-48 bg-white rounded-full bg-opacity-30">
                     {/* <i className="text-6xl text-white fas fa-laptop-code"></i> */}
                     <img
-                      src="/images/logo3.png"
+                      src="/images/Logo3.png"
                       alt="Logo"
                       width={150}
                       height={80}
