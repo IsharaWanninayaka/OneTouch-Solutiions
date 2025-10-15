@@ -32,7 +32,7 @@ function Header() {
             <div className="flex items-center">
               <img
                 onClick={() => navigate("/")}
-                src="/images/logo3.png"
+                src="/logo3.png"
                 alt="Logo"
                 width={150}
                 height={80}
