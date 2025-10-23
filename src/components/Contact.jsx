@@ -66,6 +66,9 @@ function Contact() {
           email: formData.email,
           company: formData.company,
           message: formData.message,
+          to_email:
+            "ishara@onetouchsolutions.lk,namal@onetouchsolutions.lk,dinesh@onetouchsolutions.lk",
+          reply_to: formData.email,
         },
         process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
@@ -136,7 +139,7 @@ function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold">Phone</h4>
-                    <p>+94 71 469 8430</p>
+                    <p>+94 70 604 1212</p>
                   </div>
                 </div>
 
@@ -146,7 +149,11 @@ function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold">Email</h4>
-                    <p>ish@onetouchsolution.it.com</p>
+                    <p>
+                      <a href="mailto:contact@yourdomain.com">
+                        contact@onetouchsolutions.lk
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -156,7 +163,11 @@ function Contact() {
                   </div>
                   <div>
                     <h4 className="font-bold">Email</h4>
-                    <p>ish@onetouchsolution.it.com</p>
+                    <p>
+                      <a href="mailto:support@yourdomain.com">
+                        support@onetouchsolutions.lk
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -165,25 +176,25 @@ function Contact() {
                 <h4 className="mb-4 font-bold">Follow Us</h4>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
+                    href="https://x.com/onetouchso88573?t=2Fmp880ebWi7aKWbXRCulA&s=08"
                     className="flex items-center justify-center w-10 h-10 transition bg-white rounded-full bg-opacity-20 hover:bg-opacity-30"
                   >
                     <i className="fab fa-twitter"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://www.facebook.com/profile.php?id=61582138145189&mibextid=LQQJ4d"
                     className="flex items-center justify-center w-10 h-10 transition bg-white rounded-full bg-opacity-20 hover:bg-opacity-30"
                   >
                     <i className="fab fa-facebook-f"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/oone-touch-solutions/about/?viewAsMember=true"
                     className="flex items-center justify-center w-10 h-10 transition bg-white rounded-full bg-opacity-20 hover:bg-opacity-30"
                   >
                     <i className="fab fa-linkedin-in"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/ishar_a675?igsh=MTg2ZnBwemw4dDVuMA%3D%3D&utm_source=qr"
                     className="flex items-center justify-center w-10 h-10 transition bg-white rounded-full bg-opacity-20 hover:bg-opacity-30"
                   >
                     <i className="fab fa-instagram"></i>

@@ -132,7 +132,7 @@ function Footer() {
               </li>
               <li className="flex items-start">
                 <i className="mt-1 mr-3 fas fa-phone"></i>
-                <span>+94 77 284 7846</span>
+                <span>+94 70 604 1212</span>
               </li>
               <li className="flex items-start">
                 <i className="mt-1 mr-3 fas fa-phone"></i>
@@ -140,7 +140,11 @@ function Footer() {
               </li>
               <li className="flex items-start">
                 <i className="mt-1 mr-3 fas fa-envelope"></i>
-                <span>info@onetouchsolution.it.com</span>
+                <span>
+                  <a href="mailto:contact@yourdomain.com">
+                    contact@onetouchsolutions.lk
+                  </a>
+                </span>
               </li>
             </ul>
           </div>
