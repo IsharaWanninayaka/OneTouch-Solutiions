@@ -12,7 +12,7 @@ function LearnMoreAboutUs() {
       social: {
         linkedin: "#",
         github: "#",
-        email: "dinesh@onetouchsolution.com",
+        email: "dinesh@onetouchsolution.lk",
       },
     },
     {
@@ -21,9 +21,9 @@ function LearnMoreAboutUs() {
       image: "/images/namal.png",
       bio: "With 10+ years of experience in digital branding, creative marketing, and business growth strategy.focuses on driving engagement through innovation and empowering brands to achieve potential in the digital landscape.",
       social: {
-        linkedin: "#",
+        linkedin: "https://www.linkedin.com/in/namal-sandun-a5b67818b/",
         github: "#",
-        email: "sarah@onetouchsolution.com",
+        email: "namal@onetouchsolution.lk",
       },
     },
     {
@@ -32,9 +32,9 @@ function LearnMoreAboutUs() {
       image: "/images/ishara.jpg",
       bio: "Vision-driven entrepreneur with a strong foundation in software development and management. Passionate about innovation, delivering real impact for clients.",
       social: {
-        linkedin: "#",
-        github: "#",
-        email: "mike@onetouchsolution.com",
+        linkedin: "https://www.linkedin.com/in/ishara-wanninayaka-b05173327",
+        github: "https://github.com/IsharaWanninayaka",
+        email: "ishara@onetouchsolution.lk",
       },
     },
     {
@@ -43,9 +43,9 @@ function LearnMoreAboutUs() {
       image: "/images/devinda.png",
       bio: "Experienced in deployment strategies, version control, and agile project management. Ensures every project moves smoothly from development to delivery with precision and reliability",
       social: {
-        linkedin: "#",
-        github: "#",
-        email: "emily@onetouchsolution.com",
+        linkedin: "https://www.linkedin.com/in/devinda-wanasinghe-51433631a",
+        github: "https://github.com/DevindaWanasinghe",
+        email: "devindawanasinghe@gmail.com",
       },
     },
     {
@@ -54,9 +54,9 @@ function LearnMoreAboutUs() {
       image: "/images/anushka.jpg",
       bio: "Specialized in modern frontend technologies and UI/UX design. Skilled at crafting responsive, user-friendly interfaces while maintaining strong testing and quality standards.",
       social: {
-        linkedin: "#",
-        github: "#",
-        email: "emily@onetouchsolution.com",
+        linkedin: "https://www.linkedin.com/in/anushka-lakmal-854029243",
+        github: "https://github.com/AnushkaLakmal07",
+        email: "anushkalakmal0607@gmail.com",
       },
     },
     {
@@ -65,9 +65,9 @@ function LearnMoreAboutUs() {
       image: "/images/shanilka.png",
       bio: "Focused on backend architecture and API development with a creative eye for design. Ensures stability, performance, and usability through thorough testing and clean coding practices.",
       social: {
-        linkedin: "#",
-        github: "#",
-        email: "emily@onetouchsolution.com",
+        linkedin: "https://www.linkedin.com/in/shanilka-hirushan-1559a3355",
+        github: "https://github.com/ShanilkaHirushan",
+        email: "shanilka13hirushan@gmail.com",
       },
     },
   ];

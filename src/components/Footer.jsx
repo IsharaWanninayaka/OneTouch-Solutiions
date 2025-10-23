@@ -17,25 +17,25 @@ function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://x.com/onetouchso88573?t=2Fmp880ebWi7aKWbXRCulA&s=08"
                 className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
               >
                 <i className="fab fa-twitter"></i>
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61582138145189&mibextid=LQQJ4d"
                 className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
               >
                 <i className="fab fa-facebook-f"></i>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/oone-touch-solutions/about/?viewAsMember=true"
                 className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
               >
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ishar_a675?igsh=MTg2ZnBwemw4dDVuMA%3D%3D&utm_source=qr"
                 className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
               >
                 <i className="fab fa-instagram"></i>
