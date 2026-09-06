@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import Logo from "./Logo";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -20,180 +21,150 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (sectionId) => {
+    setIsMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const section = document.querySelector(sectionId);
+        section?.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    } else {
+      const section = document.querySelector(sectionId);
+      section?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-slate-900/90 backdrop-blur-md shadow-lg shadow-black/20 border-b border-slate-800/80 py-3"
+          : "bg-gradient-to-b from-slate-950/90 via-slate-950/40 to-transparent py-5"
       }`}
     >
-      <div className="container px-4 mx-auto md:px-6">
+      <div className="container px-4 mx-auto md:px-8">
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <img
-                onClick={() => navigate("/")}
-                src="/images/Logo3.png"
-                alt="Logo"
-                width={150}
-                height={80}
-              />
-
-              <span
-                className={`text-xl font-bold ${
-                  isScrolled ? "text-gray-800" : "text-white"
-                }`}
-              ></span>
-            </div>
+          {/* Logo Brand */}
+          <div onClick={() => navigate("/")}>
+            <Logo variant="light" size="normal" />
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden space-x-8 md:flex">
-            <a
-              onClick={() => {
-                navigate("/"); // go to homepage
-                setTimeout(() => {
-                  const section = document.querySelector("#home");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }, 100); // small delay to wait for page render
-              }}
-              className={`nav-link font-medium cursor-pointer ${
-                isScrolled
-                  ? "text-gray-700 hover:text-indigo-600"
-                  : "text-white hover:text-indigo-200"
-              }`}
+          {/* Desktop Navigation Links */}
+          <nav className="hidden space-x-8 lg:flex items-center">
+            <button
+              onClick={() => handleNavClick("#home")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
             >
               Home
-            </a>
-            <a
-              onClick={() => {
-                navigate("/"); // go to homepage
-                setTimeout(() => {
-                  const section = document.querySelector("#services");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }, 100); // small delay to wait for page render
-              }}
-              className={`nav-link font-medium cursor-pointer ${
-                isScrolled
-                  ? "text-gray-700 hover:text-indigo-600"
-                  : "text-white hover:text-indigo-200"
-              }`}
+            </button>
+            <button
+              onClick={() => handleNavClick("#services")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
             >
               Services
-            </a>
-            <a
-              onClick={() => {
-                navigate("/"); // go to homepage
-                setTimeout(() => {
-                  const section = document.querySelector("#portfolio");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }, 100); // small delay to wait for page render
-              }}
-              className={`nav-link font-medium cursor-pointer ${
-                isScrolled
-                  ? "text-gray-700 hover:text-indigo-600"
-                  : "text-white hover:text-indigo-200"
-              }`}
+            </button>
+            <button
+              onClick={() => handleNavClick("#portfolio")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
             >
               Portfolio
-            </a>
-            <a
-              onClick={() => {
-                navigate("/"); // go to homepage
-                setTimeout(() => {
-                  const section = document.querySelector("#about");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }, 100); // small delay to wait for page render
-              }}
-              className={`nav-link font-medium cursor-pointer ${
-                isScrolled
-                  ? "text-gray-700 hover:text-indigo-600"
-                  : "text-white hover:text-indigo-200"
-              }`}
+            </button>
+            <button
+              onClick={() => handleNavClick("#tech-stack")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
+            >
+              Capabilities
+            </button>
+            <button
+              onClick={() => handleNavClick("#about")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
             >
               About
-            </a>
-            <a
-              onClick={() => {
-                navigate("/"); // go to homepage
-                setTimeout(() => {
-                  const section = document.querySelector("#contact");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }, 100); // small delay to wait for page render
-              }}
-              className={`nav-link font-medium cursor-pointer ${
-                isScrolled
-                  ? "text-gray-700 hover:text-indigo-600"
-                  : "text-white hover:text-indigo-200"
-              }`}
+            </button>
+            <button
+              onClick={() => handleNavClick("#contact")}
+              className="text-sm font-medium text-slate-200 hover:text-blue-400 transition-colors py-1"
             >
               Contact
-            </a>
+            </button>
           </nav>
 
-          <div className="hidden md:block">
+          {/* CTA Action Button */}
+          <div className="hidden lg:flex items-center space-x-4">
             <button
               onClick={() => navigate("/get-quote")}
-              className="px-6 py-2 font-medium text-indigo-600 transition duration-300 bg-white rounded-lg hover:bg-indigo-50"
+              className="relative group inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-blue-600 rounded-full hover:bg-blue-500 shadow-md shadow-blue-600/30 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0"
             >
-              Get Quote
+              <span>Get a Quote</span>
+              <svg className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu toggle button */}
           <button
-            className={`md:hidden ${
-              isScrolled ? "text-gray-800" : "text-white"
-            }`}
+            className="p-2 text-slate-200 lg:hidden focus:outline-none rounded-lg hover:bg-slate-800/60"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle navigation"
           >
-            <i
-              className={`fas ${isMenuOpen ? "fa-times" : "fa-bars"} text-2xl`}
-            ></i>
+            <i className={`fas ${isMenuOpen ? "fa-times" : "fa-bars"} text-2xl`}></i>
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Drawer */}
         {isMenuOpen && (
-          <div className="pb-4 mt-4 bg-white rounded-lg shadow-lg md:hidden">
-            <div className="flex flex-col px-4 space-y-3">
-              <a
-                href="#home"
-                className="py-2 font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setIsMenuOpen(false)}
+          <div className="mt-4 p-5 bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-2xl shadow-2xl lg:hidden transition-all duration-300">
+            <div className="flex flex-col space-y-4">
+              <button
+                onClick={() => handleNavClick("#home")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
               >
                 Home
-              </a>
-              <a
-                href="#services"
-                className="py-2 font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleNavClick("#services")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
               >
                 Services
-              </a>
-              <a
-                href="#portfolio"
-                className="py-2 font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleNavClick("#portfolio")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
               >
                 Portfolio
-              </a>
-              <a
-                href="#about"
-                className="py-2 font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleNavClick("#tech-stack")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
+              >
+                Capabilities & Stack
+              </button>
+              <button
+                onClick={() => handleNavClick("#about")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
               >
                 About
-              </a>
-              <a
-                href="#contact"
-                className="py-2 font-medium text-gray-700 hover:text-indigo-600"
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => handleNavClick("#contact")}
+                className="text-left font-medium text-slate-200 hover:text-blue-400 py-2 border-b border-slate-800/60"
               >
                 Contact
-              </a>
-              <button className="px-4 py-2 mt-2 font-medium text-white transition duration-300 bg-indigo-600 rounded-lg hover:bg-indigo-700">
-                Get Quote
               </button>
+              
+              <div className="pt-2 flex flex-col space-y-3">
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/get-quote");
+                  }}
+                  className="w-full py-3 font-semibold text-center text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-lg shadow-blue-600/30"
+                >
+                  Get a Quote
+                </button>
+              </div>
             </div>
           </div>
         )}

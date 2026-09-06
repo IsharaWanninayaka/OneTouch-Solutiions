@@ -1,180 +1,152 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "./Logo";
 
 function Footer() {
   const navigate = useNavigate();
+
   return (
-    <footer className="py-12 text-white bg-gray-800">
-      <div className="container px-4 mx-auto md:px-6">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div>
-            <div className="flex items-center mb-6">
-              <img src="/images/Logo3.png" alt="Logo" width={150} height={80} />
+    <footer className="bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-12 relative overflow-hidden">
+      <div className="container px-4 mx-auto md:px-8">
+        
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/60">
+          
+          {/* Col 1: Brand Info */}
+          <div className="lg:col-span-2 space-y-4">
+            <div onClick={() => navigate("/")}>
+              <Logo variant="light" size="normal" />
             </div>
-            <p className="mb-6 text-gray-400">
-              Transforming ideas into digital reality with cutting-edge
-              technology solutions.
+            <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
+              Engineering high-performance web applications, mobile platforms, enterprise software, and integrated IoT hardware systems for global innovation.
             </p>
-            <div className="flex space-x-4">
+            
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 pt-2">
               <a
                 href="https://x.com/onetouchso88573?t=2Fmp880ebWi7aKWbXRCulA&s=08"
-                className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-slate-900 text-slate-300 hover:bg-blue-600 hover:text-white border border-slate-800 flex items-center justify-center transition-all"
+                aria-label="Twitter"
               >
-                <i className="fab fa-twitter"></i>
+                <i className="fab fa-twitter text-sm"></i>
               </a>
               <a
                 href="https://www.facebook.com/profile.php?id=61582138145189&mibextid=LQQJ4d"
-                className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-slate-900 text-slate-300 hover:bg-blue-600 hover:text-white border border-slate-800 flex items-center justify-center transition-all"
+                aria-label="Facebook"
               >
-                <i className="fab fa-facebook-f"></i>
+                <i className="fab fa-facebook-f text-sm"></i>
               </a>
               <a
                 href="https://www.linkedin.com/company/oone-touch-solutions/about/?viewAsMember=true"
-                className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-slate-900 text-slate-300 hover:bg-blue-600 hover:text-white border border-slate-800 flex items-center justify-center transition-all"
+                aria-label="LinkedIn"
               >
-                <i className="fab fa-linkedin-in"></i>
+                <i className="fab fa-linkedin-in text-sm"></i>
               </a>
               <a
                 href="https://www.instagram.com/ishar_a675?igsh=MTg2ZnBwemw4dDVuMA%3D%3D&utm_source=qr"
-                className="flex items-center justify-center w-10 h-10 transition bg-gray-700 rounded-full hover:bg-indigo-600"
+                target="_blank" rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-slate-900 text-slate-300 hover:bg-blue-600 hover:text-white border border-slate-800 flex items-center justify-center transition-all"
+                aria-label="Instagram"
               >
-                <i className="fab fa-instagram"></i>
+                <i className="fab fa-instagram text-sm"></i>
               </a>
             </div>
           </div>
 
+          {/* Col 2: Solutions */}
           <div>
-            <h4 className="mb-6 text-lg font-bold">Services</h4>
-            <ul className="space-y-3">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Solutions</h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  Web Development
-                </a>
+                <a href="#services" className="hover:text-blue-400 transition-colors">Web Development</a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  Custom Web Apps
-                </a>
+                <a href="#services" className="hover:text-blue-400 transition-colors">Custom Web Apps</a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  Mobile Apps
-                </a>
+                <a href="#services" className="hover:text-blue-400 transition-colors">Mobile Applications</a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  Software + Hardware
-                </a>
+                <a href="#services" className="hover:text-blue-400 transition-colors">IoT & Hardware</a>
+              </li>
+              <li>
+                <a href="#tech-stack" className="hover:text-blue-400 transition-colors">Cloud Architecture</a>
               </li>
             </ul>
           </div>
 
+          {/* Col 3: Company */}
           <div>
-            <h4 className="mb-6 text-lg font-bold">Company</h4>
-            <ul className="space-y-3">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Company</h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <a
-                  onClick={() => navigate("/more-about")}
-                  className="text-gray-400 transition cursor-pointer hover:text-white"
-                >
+                <button onClick={() => navigate("/more-about")} className="hover:text-blue-400 transition-colors text-left">
                   About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  onClick={() => navigate("/more-about")}
-                  className="text-gray-400 transition cursor-pointer hover:text-white"
-                >
-                  Our Team
-                </a>
+                <button onClick={() => navigate("/our-work")} className="hover:text-blue-400 transition-colors text-left">
+                  Case Studies
+                </button>
               </li>
               <li>
-                <a
-                  onClick={() => navigate("/more-about")}
-                  className="text-gray-400 transition cursor-pointer hover:text-white"
-                >
-                  Careers
-                </a>
+                <button onClick={() => navigate("/get-quote")} className="hover:text-blue-400 transition-colors text-left">
+                  Request Quote
+                </button>
               </li>
               <li>
-                <a
-                  onClick={() => navigate("/more-about")}
-                  className="text-gray-400 transition cursor-pointer hover:text-white"
-                >
-                  Contact
-                </a>
+                <button onClick={() => navigate("/start-project")} className="hover:text-blue-400 transition-colors text-left">
+                  Start Project
+                </button>
               </li>
             </ul>
           </div>
 
+          {/* Col 4: Contact */}
           <div>
-            <h4 className="mb-6 text-lg font-bold">Contact</h4>
-            <ul className="space-y-3 text-gray-400">
-              <li className="flex items-start">
-                <i className="mt-1 mr-3 fas fa-map-marker-alt"></i>
-                <span>No 27,Halgasthota,Katunayaka</span>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Office & Support</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2.5">
+                <i className="fas fa-map-marker-alt text-blue-400 mt-1"></i>
+                <span>Katunayaka, Sri Lanka</span>
               </li>
-              <li className="flex items-start">
-                <i className="mt-1 mr-3 fas fa-phone"></i>
+              <li className="flex items-start gap-2.5">
+                <i className="fas fa-phone-alt text-blue-400 mt-1"></i>
                 <span>+94 71 469 8430</span>
               </li>
-              <li className="flex items-start">
-                <i className="mt-1 mr-3 fas fa-phone"></i>
-                <span>+94 70 604 1212</span>
-              </li>
-              <li className="flex items-start">
-                <i className="mt-1 mr-3 fas fa-phone"></i>
-                <span>+94 71 604 7249</span>
-              </li>
-              <li className="flex items-start">
-                <i className="mt-1 mr-3 fas fa-envelope"></i>
-                <span>
-                  <a href="mailto:contact@yourdomain.com">
-                    contact@onetouchsolutions.lk
-                  </a>
-                </span>
+              <li className="flex items-start gap-2.5">
+                <i className="fas fa-envelope text-blue-400 mt-1"></i>
+                <a href="mailto:contact@onetouchsolutions.lk" className="hover:text-blue-400 transition-colors">
+                  contact@onetouchsolutions.lk
+                </a>
               </li>
             </ul>
           </div>
+
         </div>
 
-        <div className="flex flex-col items-center justify-between pt-8 mt-12 border-t border-gray-700 md:flex-row">
-          <p className="mb-4 text-gray-400 md:mb-0">
-            &copy; 2022 OneTouch Solutions. All rights reserved.
-          </p>
-          <div className="flex space-x-6">
-            <a
-              onClick={() => navigate("/privacy-policy")}
-              className="text-gray-400 transition hover:text-white"
-            >
+        {/* Bottom Legal & Copyright Bar */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <p>© {new Date().getFullYear()} OneTouch Solutions. All rights reserved.</p>
+          
+          <div className="flex items-center gap-6">
+            <button onClick={() => navigate("/privacy-policy")} className="hover:text-white transition-colors">
               Privacy Policy
-            </a>
-            <a
-              onClick={() => navigate("/terms-of-service")}
-              className="text-gray-400 transition hover:text-white"
-            >
+            </button>
+            <button onClick={() => navigate("/terms-of-service")} className="hover:text-white transition-colors">
               Terms of Service
-            </a>
-            <a
-              onClick={() => navigate("/cookie-policy")}
-              className="text-gray-400 transition hover:text-white"
-            >
+            </button>
+            <button onClick={() => navigate("/cookie-policy")} className="hover:text-white transition-colors">
               Cookie Policy
-            </a>
+            </button>
           </div>
         </div>
+
       </div>
     </footer>
   );

@@ -1,20 +1,15 @@
 import React from "react";
+import Logo from "./Logo";
 
 function Loading() {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
-      <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-4 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
-        <div className="flex items-center">
-          <img
-            className="m-8"
-            src="/images/logo3.png"
-            alt="Logo"
-            width={150}
-            height={80}
-          />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 text-white">
+      <div className="text-center flex flex-col items-center">
+        <div className="mb-6">
+          <Logo size="lg" />
         </div>
-        <p className="mt-2 text-indigo-100">Loading amazing experiences...</p>
+        <div className="w-10 h-10 border-3 border-blue-500/30 border-t-blue-500 rounded-full animate-spin"></div>
+        <p className="mt-4 text-xs font-semibold text-slate-400 uppercase tracking-widest">Loading OneTouch Experience...</p>
       </div>
     </div>
   );

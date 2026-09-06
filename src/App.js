@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import TechStack from './components/TechStack'
+import Process from './components/Process'
 import Portfolio from './components/Portfolio'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -16,21 +18,22 @@ import TermsOfService from './pages/TearmsOfService'
 import CookiePolicy from './pages/CookiePolicy'
 import CookieConsent from './pages/CookieConsentBanner'
 
-
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-slate-950 min-h-screen font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
         <Header />
         <Routes>
           <Route path="/" element={
-            <>
+            <main>
               <Hero />
               <Services />
+              <TechStack />
+              <Process />
               <Portfolio />
               <About />
               <Contact />
-            </>
+            </main>
           } />
           <Route path="/get-quote" element={<GetQuote />} />
           <Route path="/more-about" element={<MoreAbout />} />
@@ -39,7 +42,6 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
-          
         </Routes>
         <Footer />
         <CookieConsent />

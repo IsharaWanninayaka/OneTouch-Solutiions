@@ -25,24 +25,24 @@ function GetQuote() {
     "Web Development",
     "Custom Web Application",
     "Mobile App",
-    "IoT",
+    "Software + Hardware (IoT)",
     "E-commerce Platform",
-    "Other",
+    "Custom Solution",
   ];
 
   const budgetRanges = [
-    "$100 - $500",
+    "$150 - $500",
     "$500 - $1,000",
     "$1,000 - $5,000",
-    "Not sure",
+    "$5,000+",
+    "Flexible / Custom Scope",
   ];
 
   const timelineOptions = [
-    "1-2 weeks",
+    "1-2 weeks (Rapid)",
     "1 month",
     "2-3 months",
     "3-6 months",
-    "6+ months",
     "Flexible",
   ];
 
@@ -55,7 +55,6 @@ function GetQuote() {
   };
 
   const nextStep = () => {
-    // Validate current step before proceeding
     if (currentStep === 1) {
       if (!formData.name.trim()) {
         setErrorMessage("Please enter your full name.");
@@ -69,7 +68,7 @@ function GetQuote() {
       }
     } else if (currentStep === 2) {
       if (!formData.projectType.trim()) {
-        setErrorMessage("Please select a project type.");
+        setErrorMessage("Please select a project domain.");
         setShowError(true);
         return;
       }
@@ -87,7 +86,6 @@ function GetQuote() {
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
 
-    // Validate all required fields
     if (!formData.name.trim()) {
       setErrorMessage("Please enter your full name.");
       setShowError(true);
@@ -99,7 +97,7 @@ function GetQuote() {
       return;
     }
     if (!formData.projectType.trim()) {
-      setErrorMessage("Please select a project type.");
+      setErrorMessage("Please select a project domain.");
       setShowError(true);
       return;
     }
@@ -120,8 +118,6 @@ function GetQuote() {
       );
 
       setShowSuccessAlert(true);
-
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -146,96 +142,100 @@ function GetQuote() {
   };
 
   return (
-    <div className="min-h-screen pt-24 bg-gray-50">
-      <div className="container px-4 py-12 mx-auto">
+    <div className="min-h-screen pt-32 pb-24 bg-slate-950 text-white relative tech-grid-pattern overflow-hidden">
+      <div className="container px-4 mx-auto md:px-8 relative z-10">
+        
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl">
-            Get Your Project Quote
+        <div className="max-w-3xl mx-auto mb-12 text-center">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <i className="fas fa-calculator mr-2"></i> Immediate Scope & Cost Estimate
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            Request a Detailed <span className="gradient-text">Project Quote</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-xl text-gray-600">
-            Tell us about your project and we'll provide a detailed quote within
-            24 hours.
+          <p className="text-slate-400 text-lg">
+            Share your project parameters and our engineering lead will evaluate technical requirements and return a line-item estimate within 24 hours.
           </p>
         </div>
 
         {/* Progress Bar */}
-        <div className="max-w-2xl mx-auto mb-8">
-          <div className="flex items-center justify-between mb-4">
-            {["Basic Info", "Project Details", "Requirements"].map(
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="flex items-center justify-between mb-3 text-xs font-bold uppercase tracking-wider">
+            {["1. Client Info", "2. Project Scope", "3. Requirements"].map(
               (label, index) => (
                 <div
                   key={label}
-                  className={`text-sm font-medium ${
-                    currentStep >= index + 1
-                      ? "text-indigo-600"
-                      : "text-gray-500"
-                  }`}
+                  className={currentStep >= index + 1 ? "text-blue-400" : "text-slate-500"}
                 >
                   {label}
                 </div>
               )
             )}
           </div>
-          <div className="w-full h-2 bg-gray-200 rounded-full">
+          <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
             <div
-              className="h-2 transition-all duration-300 bg-indigo-600 rounded-full"
+              className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-300 rounded-full"
               style={{ width: `${(currentStep / 3) * 100}%` }}
             ></div>
           </div>
         </div>
 
-        <div className="max-w-2xl p-8 mx-auto bg-white shadow-lg rounded-xl">
+        {/* Form Container */}
+        <div className="max-w-2xl mx-auto p-8 md:p-10 rounded-3xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl shadow-2xl">
           <form onSubmit={handleSubmit}>
+            
             {/* Step 1 */}
             {currentStep === 1 && (
               <div className="space-y-6">
-                <h2 className="mb-6 text-2xl font-bold text-gray-800">
-                  Basic Information
-                </h2>
+                <h2 className="text-2xl font-bold text-white mb-6">Contact Credentials</h2>
 
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block mb-2 text-gray-700">
-                      Full Name *
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Full Name <span className="text-blue-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Jane Doe"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block mb-2 text-gray-700">
-                      Email Address *
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Email Address <span className="text-blue-500">*</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="jane@company.com"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block mb-2 text-gray-700">Company</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Company Name
+                    </label>
                     <input
                       type="text"
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Acme Tech"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="block mb-2 text-gray-700">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -243,18 +243,20 @@ function GetQuote() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="+94 71 123 4567"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                     />
                   </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-4">
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="px-8 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+                    className="px-8 py-3.5 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition-all"
                   >
-                    Next: Project Details
+                    <span>Next: Project Scope</span>
+                    <i className="fas fa-arrow-right ml-2 text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -263,22 +265,20 @@ function GetQuote() {
             {/* Step 2 */}
             {currentStep === 2 && (
               <div className="space-y-6">
-                <h2 className="mb-6 text-2xl font-bold text-gray-800">
-                  Project Details
-                </h2>
+                <h2 className="text-2xl font-bold text-white mb-6">Scope & Budget</h2>
 
                 <div>
-                  <label className="block mb-2 text-gray-700">
-                    Project Type *
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Solution Category <span className="text-blue-500">*</span>
                   </label>
                   <select
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                     required
                   >
-                    <option value="">Select a project type</option>
+                    <option value="">Select Domain Category</option>
                     {projectTypes.map((type) => (
                       <option key={type} value={type}>
                         {type}
@@ -287,18 +287,18 @@ function GetQuote() {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block mb-2 text-gray-700">
-                      Estimated Budget
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Estimated Budget Range
                     </label>
                     <select
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                     >
-                      <option value="">Select budget range</option>
+                      <option value="">Select Budget</option>
                       {budgetRanges.map((range) => (
                         <option key={range} value={range}>
                           {range}
@@ -307,14 +307,16 @@ function GetQuote() {
                     </select>
                   </div>
                   <div>
-                    <label className="block mb-2 text-gray-700">Timeline</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Target Timeline
+                    </label>
                     <select
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                     >
-                      <option value="">Select timeline</option>
+                      <option value="">Select Timeline</option>
                       {timelineOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}
@@ -324,20 +326,21 @@ function GetQuote() {
                   </div>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between pt-4">
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="px-8 py-3 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                    className="px-6 py-3.5 text-xs font-bold text-slate-300 bg-slate-800 rounded-xl hover:bg-slate-700"
                   >
                     Back
                   </button>
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="px-8 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+                    className="px-8 py-3.5 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-lg shadow-blue-600/30"
                   >
-                    Next: Requirements
+                    <span>Next: Technical Details</span>
+                    <i className="fas fa-arrow-right ml-2 text-xs"></i>
                   </button>
                 </div>
               </div>
@@ -346,64 +349,61 @@ function GetQuote() {
             {/* Step 3 */}
             {currentStep === 3 && (
               <div className="space-y-6">
-                <h2 className="mb-6 text-2xl font-bold text-gray-800">
-                  Project Requirements
-                </h2>
+                <h2 className="text-2xl font-bold text-white mb-6">Technical Specifications</h2>
 
                 <div>
-                  <label className="block mb-2 text-gray-700">
-                    Project Description *
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Detailed Project Overview <span className="text-blue-500">*</span>
                   </label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
                     rows="6"
-                    placeholder="Please describe your project in detail..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Provide details regarding core features, third-party integrations, target platforms, or hardware specs..."
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm resize-none"
                     required
                   ></textarea>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between pt-4">
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="px-8 py-3 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                    className="px-6 py-3.5 text-xs font-bold text-slate-300 bg-slate-800 rounded-xl hover:bg-slate-700"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-8 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                    className="px-8 py-3.5 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-xl shadow-blue-600/30 transition-all duration-200"
                   >
                     {isSubmitting ? (
-                      <span className="flex items-center">
-                        <div className="w-4 h-4 mr-2 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
-                        Sending...
+                      <span className="flex items-center gap-2">
+                        <i className="fas fa-spinner fa-spin"></i>
+                        <span>Processing Quote Request...</span>
                       </span>
                     ) : (
-                      "Send My Quote"
+                      "Submit Quote Request"
                     )}
                   </button>
                 </div>
               </div>
             )}
+
           </form>
         </div>
 
         {/* Quick Contact */}
-        <div className="max-w-2xl mx-auto mt-8 text-center">
-          <p className="text-gray-600">
-            Prefer to talk directly?{" "}
-            <a
-              href="tel:+94714698430"
-              className="font-medium text-indigo-600 hover:text-indigo-700"
-            >
-              Call us now
-            </a>
-          </p>
+        <div className="max-w-2xl mx-auto mt-10 text-center text-sm text-slate-400">
+          Need immediate consultation?{" "}
+          <a
+            href="tel:+94714698430"
+            className="font-bold text-blue-400 hover:text-blue-300 underline underline-offset-4 ml-1"
+          >
+            Direct Hotline: +94 71 469 8430
+          </a>
         </div>
       </div>
 
@@ -412,8 +412,8 @@ function GetQuote() {
         <PopupAlert
           isOpen={showSuccessAlert}
           onClose={() => setShowSuccessAlert(false)}
-          title="Quote Request Sent!"
-          message="Thank you! Your project details were sent successfully. We will contact you within 24 hours with your detailed quote."
+          title="Quote Request Received!"
+          message="Thank you! Your requirements were submitted. Our team will review the specifications and issue a comprehensive quote within 24 hours."
           type="success"
           confirmButtonText="OK"
           animation="scale"
@@ -424,7 +424,7 @@ function GetQuote() {
       <ErrorPopup
         isOpen={showError}
         onClose={() => setShowError(false)}
-        title="Error"
+        title="Form Error"
         message={errorMessage}
         type="validation"
         showRetryButton={true}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 95" width="340" height="95">
+  <defs>
+    <linearGradient id="glowRingNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0066FF" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="glowRingBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0066FF" />
+    </linearGradient>
+    <linearGradient id="glowRingWhite" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38BDF8" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Power Circle Emblem -->
+  <g transform="translate(6, 3)" filter="url(#softGlow)">
+    <!-- Navy/Blue Ring -->
+    <circle cx="43" cy="43" r="35" stroke="url(#glowRingNavy)" stroke-width="11" fill="none" />
+    
+    <!-- Light Top Arc -->
+    <path d="M 43,8 A 35,35 0 0,0 11,58" stroke="url(#glowRingWhite)" stroke-width="11" stroke-linecap="round" fill="none" />
+    
+    <!-- Cyan Accent Arc -->
+    <path d="M 70,20 A 35,35 0 0,1 78,43" stroke="url(#glowRingBlue)" stroke-width="11" stroke-linecap="round" fill="none" />
+
+    <!-- Center Inner Circle -->
+    <circle cx="43" cy="43" r="19" fill="#0B0F19" stroke="#38BDF8" stroke-width="2.5" />
+
+    <!-- Power Button Notch -->
+    <rect x="39" y="19" width="8" height="21" rx="4" fill="#38BDF8" />
+    <rect x="40.5" y="21" width="5" height="10" rx="2.5" fill="#FFFFFF" />
+  </g>
+
+  <!-- Brand Text -->
+  <!-- "OneTouch" -->
+  <text x="106" y="49" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="800" font-size="39" letter-spacing="-0.5">
+    <tspan fill="#FFFFFF">One</tspan><tspan fill="#38BDF8">Touch</tspan>
+  </text>
+  
+  <!-- "Solutions" -->
+  <text x="108" y="74" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="700" font-size="20" fill="#F8FAFC" letter-spacing="4.5">
+    Solutions
+  </text>
+</svg>

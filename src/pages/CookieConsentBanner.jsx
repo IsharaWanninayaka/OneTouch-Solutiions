@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const consent = localStorage.getItem("cookieConsent");
@@ -23,31 +25,34 @@ function CookieConsent() {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed z-50 p-6 text-white bg-gray-800 shadow-2xl bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md rounded-xl">
-      <h3 className="mb-2 text-lg font-bold">Cookie Consent</h3>
-      <p className="mb-4 text-sm text-gray-300">
-        We use cookies to enhance your experience and analyze our traffic. By
-        clicking "Accept All", you consent to our use of cookies.
+    <div className="fixed z-50 bottom-6 left-6 right-6 md:left-auto md:right-6 md:max-w-md p-6 rounded-2xl bg-slate-900/95 border border-slate-800 backdrop-blur-xl shadow-2xl text-white">
+      <div className="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">
+        <i className="fas fa-cookie-bite"></i> Cookie Preferences
+      </div>
+      <h3 className="text-lg font-bold text-white mb-2">We value your privacy</h3>
+      <p className="text-xs text-slate-300 mb-5 leading-relaxed">
+        We use essential cookies to deliver high performance, analyze site interactions, and improve our engineering platform experience.
       </p>
-      <div className="flex flex-col gap-3 sm:flex-row">
+      
+      <div className="flex flex-col sm:flex-row items-center gap-3">
         <button
           onClick={acceptCookies}
-          className="px-4 py-2 text-white transition duration-300 bg-indigo-600 rounded-lg hover:bg-indigo-700"
+          className="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-md shadow-blue-600/30 transition-all"
         >
           Accept All
         </button>
         <button
           onClick={rejectCookies}
-          className="px-4 py-2 text-white transition duration-300 bg-gray-700 rounded-lg hover:bg-gray-600"
+          className="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-all"
         >
-          Reject Non-Essential
+          Essential Only
         </button>
-        <a
-          href="/cookie-policy"
-          className="py-2 text-sm text-center text-indigo-300 transition duration-300 hover:text-indigo-100"
+        <button
+          onClick={() => navigate("/cookie-policy")}
+          className="text-xs text-slate-400 hover:text-blue-400 underline underline-offset-4 transition-colors"
         >
-          Learn More
-        </a>
+          Details
+        </button>
       </div>
     </div>
   );

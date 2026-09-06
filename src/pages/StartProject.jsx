@@ -23,13 +23,13 @@ function StartProject() {
       id: 1,
       name: "Starter",
       price: "$150+",
-      description: "Perfect for small businesses and startups",
+      description: "Perfect for small businesses and startups looking for a rapid digital presence.",
       features: [
-        "Responsive Website",
-        "Up to 5 pages",
-        "Basic SEO Setup",
-        "Contact Form",
-        "1 Month Support",
+        "Responsive Modern Web UI",
+        "Up to 5 Pages",
+        "Basic SEO & Analytics",
+        "Contact Form & Email Setup",
+        "1 Month Technical Support",
       ],
       recommended: false,
     },
@@ -37,29 +37,29 @@ function StartProject() {
       id: 2,
       name: "Business",
       price: "$800+",
-      description: "Ideal for growing businesses",
+      description: "Ideal for growing enterprises needing scalable custom applications.",
       features: [
-        "Custom Web Application",
-        "Admin Dashboard",
-        "Database Integration",
-        "API Development",
-        "3 Months Support",
+        "Custom Full-Stack Web App",
+        "Admin Analytics Dashboard",
+        "Database Architecture",
+        "REST API Development",
+        "3 Months Technical Support",
         "Performance Optimization",
       ],
       recommended: true,
     },
     {
       id: 3,
-      name: "Enterprise",
+      name: "Enterprise + IoT",
       price: "$1200+",
-      description: "For large-scale solutions",
+      description: "For large-scale platforms & hardware-integrated systems.",
       features: [
-        "Full-stack Development",
-        "Mobile App Included",
-        "Cloud Deployment",
-        "Advanced Security",
-        "6 Months Support",
-        "Dedicated Project Manager",
+        "Full-Stack Web & Mobile App",
+        "IoT / Hardware Integration",
+        "Cloud Deployment (AWS)",
+        "Enterprise Security SLA",
+        "6 Months Dedicated Support",
+        "Dedicated Solution Architect",
       ],
       recommended: false,
     },
@@ -70,7 +70,7 @@ function StartProject() {
     "Web Application",
     "Mobile App (iOS/Android)",
     "E-commerce Platform",
-    "Software + Hardware",
+    "Software + Hardware (IoT)",
     "Custom Solution",
   ];
 
@@ -88,9 +88,8 @@ function StartProject() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
 
-    // Validate required fields
     if (!formData.name.trim()) {
       setErrorMessage("Please enter your name.");
       setShowError(true);
@@ -114,7 +113,6 @@ function StartProject() {
 
     setIsSending(true);
 
-    // EmailJS configuration
     const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
     const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE2_ID;
     const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
@@ -132,10 +130,7 @@ function StartProject() {
 
     try {
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
-
       setShowSuccessAlert(true);
-
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -157,135 +152,141 @@ function StartProject() {
   };
 
   return (
-    <div className="min-h-screen pt-24 bg-gray-50">
-      <div className="container px-4 py-12 mx-auto">
+    <div className="min-h-screen pt-32 pb-24 bg-slate-950 text-white relative tech-grid-pattern overflow-hidden">
+      <div className="container px-4 mx-auto md:px-8 relative z-10">
+        
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl">
-            Start Your Project
+        <div className="max-w-3xl mx-auto mb-16 text-center">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <i className="fas fa-rocket mr-2"></i> Kickstart Your Vision
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            Start Your <span className="gradient-text">Project Today</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-xl text-gray-600">
-            Choose a package that fits your needs or describe your custom
-            requirements. Let's build something amazing together!
+          <p className="text-slate-400 text-lg">
+            Choose a tailored engineering tier or submit custom specifications for immediate project scope estimation.
           </p>
         </div>
 
-        {/* Packages Section */}
-        <div className="mb-16">
-          <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">
-            Choose Your Package
-          </h2>
-          <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+        {/* Packages Grid */}
+        <div className="mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {packages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`bg-white rounded-xl shadow-lg border-2 transition-all duration-300 ${
+                className={`relative rounded-3xl p-8 bg-slate-900/80 backdrop-blur-xl border transition-all duration-300 flex flex-col justify-between ${
                   selectedPackage === pkg.id
-                    ? "border-indigo-500 ring-4 ring-indigo-100"
+                    ? "border-blue-500 ring-2 ring-blue-500/40 bg-slate-900"
                     : pkg.recommended
-                    ? "border-yellow-400"
-                    : "border-gray-200"
-                } ${pkg.recommended ? "transform scale-105" : ""}`}
+                    ? "border-blue-500/60 shadow-xl shadow-blue-600/10"
+                    : "border-slate-800 hover:border-slate-700"
+                }`}
               >
                 {pkg.recommended && (
-                  <div className="py-2 font-bold text-center text-gray-800 bg-yellow-400 rounded-t-xl">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold bg-blue-600 text-white shadow-lg uppercase tracking-wider">
                     Most Popular
-                  </div>
+                  </span>
                 )}
-                <div className="p-8">
-                  <h3 className="mb-2 text-2xl font-bold text-gray-800">
-                    {pkg.name}
-                  </h3>
-                  <div className="mb-4 text-3xl font-bold text-indigo-600">
-                    {pkg.price}
-                  </div>
-                  <p className="mb-6 text-gray-600">{pkg.description}</p>
 
-                  <ul className="mb-8 space-y-3">
-                    {pkg.features.map((feature, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center text-gray-700"
-                      >
-                        <i className="mr-3 text-green-500 fas fa-check"></i>
-                        {feature}
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{pkg.name}</h3>
+                  <div className="text-3xl font-extrabold text-blue-400 mb-4">{pkg.price}</div>
+                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">{pkg.description}</p>
+
+                  <ul className="space-y-3 mb-8">
+                    {pkg.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-xs font-medium text-slate-300">
+                        <i className="fas fa-check-circle text-emerald-400 mr-2.5 text-sm"></i>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
-
-                  <button
-                    onClick={() => setSelectedPackage(pkg.id)}
-                    className={`w-full py-3 px-6 rounded-lg font-semibold transition duration-300 ${
-                      selectedPackage === pkg.id
-                        ? "bg-indigo-600 text-white"
-                        : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                    }`}
-                  >
-                    {selectedPackage === pkg.id ? "Selected" : "Select Package"}
-                  </button>
                 </div>
+
+                <button
+                  onClick={() => setSelectedPackage(pkg.id)}
+                  className={`w-full py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 ${
+                    selectedPackage === pkg.id
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
+                      : "bg-slate-800 text-slate-200 hover:bg-slate-700 hover:text-white"
+                  }`}
+                >
+                  {selectedPackage === pkg.id ? "✓ Package Selected" : "Select Tier"}
+                </button>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Custom Project Form */}
-        <div className="max-w-4xl p-8 mx-auto bg-white shadow-lg rounded-xl">
-          <h2 className="mb-6 text-3xl font-bold text-center text-gray-800">
-            Tell Us About Your Project
+        {/* Custom Specification Form */}
+        <div className="max-w-4xl mx-auto p-8 md:p-12 rounded-3xl bg-slate-900/90 border border-slate-800 backdrop-blur-xl shadow-2xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">
+            Project Specifications Form
           </h2>
+          <p className="text-slate-400 text-sm text-center mb-10">
+            Tell us about your tech stack preferences, deliverables, and timelines.
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block mb-2 text-gray-700">Your Name *</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                  Full Name <span className="text-blue-500">*</span>
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Jane Smith"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                   required
                 />
               </div>
+
               <div>
-                <label className="block mb-2 text-gray-700">
-                  Email Address *
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                  Email Address <span className="text-blue-500">*</span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="jane@company.com"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                   required
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block mb-2 text-gray-700">Company</label>
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                  Company / Organization
+                </label>
                 <input
                   type="text"
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Acme Corp"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                 />
               </div>
+
               <div>
-                <label className="block mb-2 text-gray-700">
-                  Project Type *
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                  Project Domain <span className="text-blue-500">*</span>
                 </label>
                 <select
                   name="projectType"
                   value={formData.projectType}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                   required
                 >
-                  <option value="">Select project type</option>
+                  <option value="">Select Domain / Solution Type</option>
                   {projectTypes.map((type) => (
                     <option key={type} value={type}>
                       {type}
@@ -296,88 +297,48 @@ function StartProject() {
             </div>
 
             <div>
-              <label className="block mb-2 text-gray-700">
-                Project Description *
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                Project Overview & Scope <span className="text-blue-500">*</span>
               </label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 rows="6"
-                placeholder="Describe your project goals, target audience, key features, and any specific requirements..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                placeholder="Outline your project scope, hardware requirements (if IoT), target users, and key deliverables..."
+                className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm resize-none"
                 required
               ></textarea>
             </div>
 
             {selectedPackage && (
-              <div className="p-4 rounded-lg bg-green-50">
-                <p className="font-medium text-green-700">
-                  Selected Package:{" "}
-                  <span className="font-bold">
-                    {packages.find((p) => p.id === selectedPackage).name}
-                  </span>
-                </p>
+              <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center gap-3">
+                <i className="fas fa-check-circle text-blue-400 text-lg"></i>
+                <span className="text-sm font-medium text-slate-200">
+                  Selected Package: <strong className="text-white">{packages.find((p) => p.id === selectedPackage).name}</strong>
+                </span>
               </div>
             )}
 
-            <div className="text-center">
+            <div className="pt-4 text-center">
               <button
                 type="submit"
                 disabled={isSending}
-                className="px-12 py-4 text-lg font-semibold text-white transition duration-300 bg-indigo-600 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                className="w-full md:w-auto px-12 py-4 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-500 shadow-xl shadow-blue-600/30 transition-all duration-200"
               >
                 {isSending ? (
-                  <span className="flex items-center justify-center">
-                    <div className="w-5 h-5 mr-2 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
-                    Sending...
+                  <span className="flex items-center justify-center gap-2">
+                    <i className="fas fa-spinner fa-spin"></i>
+                    <span>Submitting Specification...</span>
                   </span>
                 ) : (
-                  "Start My Project"
+                  "Transmit Project Specs"
                 )}
               </button>
             </div>
           </form>
         </div>
 
-        {/* Process Section */}
-        <div className="max-w-4xl mx-auto mt-16">
-          <h2 className="mb-12 text-3xl font-bold text-center text-gray-800">
-            Our Development Process
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            {[
-              {
-                icon: "fas fa-comments",
-                title: "Consultation",
-                desc: "We discuss your requirements and goals",
-              },
-              {
-                icon: "fas fa-pencil-alt",
-                title: "Planning",
-                desc: "Detailed project planning and wireframing",
-              },
-              {
-                icon: "fas fa-code",
-                title: "Development",
-                desc: "Agile development with regular updates",
-              },
-              {
-                icon: "fas fa-rocket",
-                title: "Launch",
-                desc: "Deployment and ongoing support",
-              },
-            ].map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-indigo-100 rounded-full">
-                  <i className={`${step.icon} text-indigo-600 text-xl`}></i>
-                </div>
-                <h3 className="mb-2 font-bold text-gray-800">{step.title}</h3>
-                <p className="text-sm text-gray-600">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Success Alert */}
@@ -385,10 +346,10 @@ function StartProject() {
         <PopupAlert
           isOpen={showSuccessAlert}
           onClose={() => setShowSuccessAlert(false)}
-          title="Project Request Sent!"
-          message="Thank you! Your project details were sent successfully. We will contact you within 24 hours to discuss your project requirements."
+          title="Specification Transmitted!"
+          message="Thank you! Your project requirements were received. Our solution architect will contact you within 24 hours."
           type="success"
-          confirmButtonText="Great!"
+          confirmButtonText="OK"
           animation="scale"
         />
       )}
@@ -397,7 +358,7 @@ function StartProject() {
       <ErrorPopup
         isOpen={showError}
         onClose={() => setShowError(false)}
-        title="Error"
+        title="Submission Error"
         message={errorMessage}
         type="validation"
         showRetryButton={true}
