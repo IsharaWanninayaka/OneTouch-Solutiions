@@ -8,10 +8,10 @@ function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-12 relative overflow-hidden">
       <div className="container px-4 mx-auto md:px-8">
-        
+
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/60">
-          
+
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div onClick={() => navigate("/")}>
@@ -20,7 +20,7 @@ function Footer() {
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
               Engineering high-performance web applications, mobile platforms, enterprise software, and integrated IoT hardware systems for global innovation.
             </p>
-            
+
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
               <a
@@ -133,7 +133,7 @@ function Footer() {
         {/* Bottom Legal & Copyright Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
           <p>© {new Date().getFullYear()} OneTouch Solutions. All rights reserved.</p>
-          
+
           <div className="flex items-center gap-6">
             <button onClick={() => navigate("/privacy-policy")} className="hover:text-white transition-colors">
               Privacy Policy

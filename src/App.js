@@ -21,7 +21,7 @@ import CookieConsent from './pages/CookieConsentBanner'
 function App() {
   return (
     <Router>
-      <div className="App bg-slate-950 min-h-screen font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+      <div className="App bg-slate-950 min-h-screen font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white pl-3 sm:pl-4 md:pl-6 pt-3 sm:pt-4 md:pt-4">
         <Header />
         <Routes>
           <Route path="/" element={
