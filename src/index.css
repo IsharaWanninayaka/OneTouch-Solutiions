@@ -5,150 +5,323 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 * {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 html {
-    scroll-behavior: smooth;
-    color: #0f172a;
-    background-color: #ffffff;
+  scroll-behavior: smooth;
+  color: #0f172a;
+  background-color: #ffffff;
 }
 
 /* Modern Gradient Utilities */
 .hero-gradient-bg {
-    background: radial-gradient(120% 120% at 50% 10%, #0f172a 0%, #0b0f19 60%, #030712 100%);
+  background: radial-gradient(120% 120% at 50% 10%, #0f172a 0%, #0b0f19 60%, #030712 100%);
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .gradient-text-animated {
-    background: linear-gradient(
-        120deg,
-        #38bdf8 0%,
-        #2563eb 30%,
-        #6366f1 60%,
-        #818cf8 80%,
-        #38bdf8 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 5s ease infinite;
+  background: linear-gradient(120deg,
+      #38bdf8 0%,
+      #2563eb 30%,
+      #6366f1 60%,
+      #818cf8 80%,
+      #38bdf8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 5s ease infinite;
 }
 
 @keyframes gradientShift {
-    0% {
-        background-position: 0% center;
-    }
-    50% {
-        background-position: 100% center;
-    }
-    100% {
-        background-position: 0% center;
-    }
+  0% {
+    background-position: 0% center;
+  }
+
+  50% {
+    background-position: 100% center;
+  }
+
+  100% {
+    background-position: 0% center;
+  }
 }
 
 .gradient-text-light {
-    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .gradient-border-card {
-    position: relative;
-    background: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gradient-border-card:hover {
-    border-color: rgba(37, 99, 235, 0.4);
-    box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.12);
-    transform: translateY(-4px);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.12);
+  transform: translateY(-4px);
 }
 
 .glass-nav {
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
 }
 
 .glass-nav-dark {
-    background: rgba(11, 15, 25, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 15, 25, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card-dark {
-    background: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tech-grid-pattern {
-    background-size: 32px 32px;
-    background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
 .tech-grid-light {
-    background-size: 32px 32px;
-    background-image: 
-        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
 .glow-orb {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(80px);
-    pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
 }
 
 .service-card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-card:hover {
-    transform: translateY(-6px);
+  transform: translateY(-6px);
 }
 
 .nav-link {
-    position: relative;
-    transition: color 0.2s ease;
+  position: relative;
+  transition: color 0.2s ease;
 }
 
 .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: #2563eb;
-    transition: width 0.25s ease;
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #2563eb;
+  transition: width 0.25s ease;
 }
 
 .nav-link:hover::after {
-    width: 100%;
+  width: 100%;
+}
+
+/* Smooth Rolling Letter Animation for Loading Screen */
+@keyframes letterRoll {
+
+  0%,
+  14% {
+    transform: translateY(0%);
+  }
+
+  28%,
+  42% {
+    transform: translateY(-25%);
+  }
+
+  56%,
+  70% {
+    transform: translateY(-50%);
+  }
+
+  84%,
+  100% {
+    transform: translateY(-75%);
+  }
+}
+
+.letter-roll-reel {
+  display: flex;
+  flex-direction: column;
+  animation: letterRoll 3.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  will-change: transform;
 }
 
 /* Hide Scrollbar completely across all browsers while allowing scrolling */
-html, body {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+html,
+body {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
 
 ::-webkit-scrollbar {
-    display: none;
-    width: 0px;
-    height: 0px;
-    background: transparent;
-}
+  display: none;
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+/*=============== BEDIMCODE LANDSCAPE RESPONSIVE CARD ANIMATION ===============*/
+.bedim__article {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: #0f172a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.bedim__img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  display: block;
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bedim__article:hover .bedim__img {
+  transform: scale(1.04);
+}
+
+.bedim__data {
+  width: calc(100% - 2.5rem);
+  max-width: 300px;
+  background-color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  border-radius: 1rem;
+  position: absolute;
+  bottom: -9rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  opacity: 0;
+  transition: opacity 1s 1s;
+  z-index: 20;
+}
+
+.bedim__description {
+  display: block;
+  font-size: 0.813rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.bedim__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.65rem;
+  line-height: 1.3;
+}
+
+.bedim__button {
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2563eb;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+}
+
+.bedim__button:hover {
+  color: #1d4ed8;
+}
+
+/* Bedimcode Animation Triggers */
+.bedim__article:hover .bedim__data {
+  animation: bedim-show-data 1s forwards;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.bedim__article:hover {
+  animation: bedim-remove-overflow 2s forwards;
+}
+
+.bedim__article:not(:hover) {
+  animation: bedim-show-overflow 2s forwards;
+}
+
+.bedim__article:not(:hover) .bedim__data {
+  animation: bedim-remove-data 0.5s forwards;
+}
+
+/* Bedimcode Keyframes */
+@keyframes bedim-show-data {
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(-7rem);
+  }
+}
+
+@keyframes bedim-remove-overflow {
+  to {
+    overflow: visible;
+  }
+}
+
+@keyframes bedim-remove-data {
+  0% {
+    transform: translateY(-7rem);
+  }
+
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes bedim-show-overflow {
+  0% {
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  50% {
+    overflow: hidden;
+  }
+}

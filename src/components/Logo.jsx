@@ -13,7 +13,7 @@ function Logo({ className = "", size = "normal" }) {
       <img
         src="/images/logo7.jpg"
         alt="OneTouch Solutions"
-        className={`${logoHeights[size] || logoHeights.normal} w-auto object-contain transition-all duration-300 group-hover:scale-[1.03] rounded-md`}
+        className={`${logoHeights[size] || logoHeights.normal} w-auto object-contain mix-blend-multiply transition-all duration-300 group-hover:scale-[1.03]`}
         onError={(e) => {
           // Fallback to Logo3.png if logo7 fails to load
           e.target.src = "/images/Logo3.png";
