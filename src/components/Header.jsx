@@ -38,34 +38,43 @@ function Header() {
 
       lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
 
-      // 2. Active Section detection for home page
+      // 2. Active Section detection for home page with anchor intersection
       if (location.pathname === "/") {
-        const sections = [
-          { id: "services", target: "#services" },
-          { id: "services2", target: "#services" },
-          { id: "tech-stack", target: "#tech-stack" },
-          { id: "portfolio", target: "#portfolio" },
-          { id: "contact", target: "#contact" },
-        ];
-        const scrollPosition = currentScrollY + 220;
+        if (currentScrollY < 180) {
+          setActiveSection("");
+        } else {
+          const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+          const anchor = vh * 0.35;
 
-        let matched = false;
-        for (const sec of sections) {
-          const element = document.getElementById(sec.id);
-          if (element) {
-            const top = element.offsetTop;
-            const height = element.offsetHeight;
-            if (scrollPosition >= top && scrollPosition < top + height) {
-              setActiveSection(sec.target);
-              matched = true;
-              break;
+          const sectionList = [
+            { id: "services", target: "#services" },
+            { id: "services2", target: "#services" },
+            { id: "about", target: "#about" },
+            { id: "portfolio", target: "#portfolio" },
+            { id: "contact", target: "#contact" },
+          ];
+
+          let matched = "";
+          for (let i = 0; i < sectionList.length; i++) {
+            const el = document.getElementById(sectionList[i].id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= anchor && rect.bottom > anchor) {
+                matched = sectionList[i].target;
+                break;
+              }
             }
           }
-        }
-        if (!matched || currentScrollY < 200) {
-          if (currentScrollY < 200) {
-            setActiveSection("");
+
+          // Safety check near page bottom (e.g. contact section at the end of page)
+          if (
+            !matched &&
+            window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 60
+          ) {
+            matched = "#contact";
           }
+
+          setActiveSection(matched);
         }
       } else {
         setActiveSection("");
@@ -91,23 +100,21 @@ function Header() {
     setIsMenuOpen(false);
     setIsWhiteMenuOpen(false);
     setActiveSection(sectionId);
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        const section = document.querySelector(sectionId);
-        if (section) {
-          const yOffset = -80;
-          const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }
-      }, 150);
-    } else {
-      const section = document.querySelector(sectionId);
+    const findTarget = (id) => document.querySelector(id);
+
+    const performScroll = () => {
+      const section = findTarget(sectionId);
       if (section) {
-        const yOffset = -80;
-        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const y = section.getBoundingClientRect().top + window.pageYOffset;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
+    };
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(performScroll, 150);
+    } else {
+      performScroll();
     }
   };
 
@@ -132,8 +139,9 @@ function Header() {
           (Grouped in one single container to transition seamlessly as one solid piece)
           ========================================================================= */}
       <div
-        className={`fixed inset-0 pointer-events-none z-40 transition-opacity duration-1000 ease-in-out ${isAtTop ? "opacity-100" : "opacity-0"
-          }`}
+        className={`fixed inset-0 pointer-events-none z-40 transition-opacity duration-1000 ease-in-out ${
+          isAtTop ? "opacity-100" : "opacity-0"
+        }`}
       >
         {/* Fixed Top White Bar */}
         <div className="absolute top-0 left-0 right-0 h-3 sm:h-4 md:h-4 bg-white pointer-events-none"></div>
@@ -175,46 +183,54 @@ function Header() {
           <nav className="hidden lg:flex items-center gap-6 bg-white/[0.08] backdrop-blur-xl px-6 py-2.5 rounded-full shadow-xl shadow-black/20 border border-white/25">
             <button
               onClick={() => handleNavClick("#services")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#services" ? "text-white" : "text-white/80 hover:text-white"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#services" ? "text-white" : "text-white/80 hover:text-white"
+              }`}
             >
               <span>Services</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${activeSection === "#services" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#services" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
-              onClick={() => handleNavClick("#tech-stack")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#tech-stack" ? "text-white" : "text-white/80 hover:text-white"
-                }`}
+              onClick={() => handleNavClick("#about")}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#about" ? "text-white" : "text-white/80 hover:text-white"
+              }`}
             >
-              <span>Our Principles</span>
+              <span>About Us</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${activeSection === "#tech-stack" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#about" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
               onClick={() => handleNavClick("#portfolio")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#portfolio" ? "text-white" : "text-white/80 hover:text-white"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#portfolio" ? "text-white" : "text-white/80 hover:text-white"
+              }`}
             >
               <span>Portfolio</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${activeSection === "#portfolio" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#portfolio" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
               onClick={() => handleNavClick("#contact")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#contact" ? "text-white" : "text-white/80 hover:text-white"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#contact" ? "text-white" : "text-white/80 hover:text-white"
+              }`}
             >
               <span>Contact</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${activeSection === "#contact" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#contact" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
 
@@ -245,29 +261,33 @@ function Header() {
             <div className="flex flex-col space-y-3">
               <button
                 onClick={() => handleNavClick("#services")}
-                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${activeSection === "#services" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
-                  }`}
+                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${
+                  activeSection === "#services" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
+                }`}
               >
                 Services
               </button>
               <button
-                onClick={() => handleNavClick("#tech-stack")}
-                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${activeSection === "#tech-stack" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
-                  }`}
+                onClick={() => handleNavClick("#about")}
+                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${
+                  activeSection === "#about" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
+                }`}
               >
-                Our Principles & Stack
+                About Us
               </button>
               <button
                 onClick={() => handleNavClick("#portfolio")}
-                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${activeSection === "#portfolio" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
-                  }`}
+                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${
+                  activeSection === "#portfolio" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
+                }`}
               >
                 Portfolio
               </button>
               <button
                 onClick={() => handleNavClick("#contact")}
-                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${activeSection === "#contact" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
-                  }`}
+                className={`text-left font-semibold py-2.5 border-b border-slate-800 transition-colors ${
+                  activeSection === "#contact" ? "text-blue-400" : "text-slate-200 hover:text-blue-400"
+                }`}
               >
                 Contact
               </button>
@@ -292,10 +312,11 @@ function Header() {
           MODE 2: 2ND IMAGE STYLE (FULL-WIDTH CLEAN WHITE STICKY NAVBAR ON SCROLL-UP)
           ========================================================================= */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform ${showWhiteNavbar
-          ? "translate-y-0 opacity-100 pointer-events-auto"
-          : "-translate-y-full opacity-0 pointer-events-none"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform ${
+          showWhiteNavbar
+            ? "translate-y-0 opacity-100 pointer-events-auto"
+            : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 md:h-20 py-1.5 flex items-center justify-between">
           {/* Left: Brand Logo */}
@@ -307,46 +328,54 @@ function Header() {
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <button
               onClick={() => handleNavClick("#services")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#services" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#services" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              }`}
             >
               <span>Services</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${activeSection === "#services" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#services" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
-              onClick={() => handleNavClick("#tech-stack")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#tech-stack" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                }`}
+              onClick={() => handleNavClick("#about")}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#about" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              }`}
             >
-              <span>Our Principles</span>
+              <span>About Us</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${activeSection === "#tech-stack" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#about" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
               onClick={() => handleNavClick("#portfolio")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#portfolio" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#portfolio" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              }`}
             >
               <span>Portfolio</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${activeSection === "#portfolio" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#portfolio" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
             <button
               onClick={() => handleNavClick("#contact")}
-              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${activeSection === "#contact" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                }`}
+              className={`relative text-xs md:text-sm font-semibold transition-colors py-1 group ${
+                activeSection === "#contact" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+              }`}
             >
               <span>Contact</span>
               <span
-                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${activeSection === "#contact" ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out rounded-full ${
+                  activeSection === "#contact" ? "w-full" : "w-0 group-hover:w-full"
+                }`}
               ></span>
             </button>
           </nav>
@@ -377,29 +406,33 @@ function Header() {
             <div className="flex flex-col space-y-2.5">
               <button
                 onClick={() => handleNavClick("#services")}
-                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${activeSection === "#services" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                  }`}
+                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${
+                  activeSection === "#services" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+                }`}
               >
                 Services
               </button>
               <button
-                onClick={() => handleNavClick("#tech-stack")}
-                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${activeSection === "#tech-stack" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                  }`}
+                onClick={() => handleNavClick("#about")}
+                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${
+                  activeSection === "#about" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+                }`}
               >
-                Our Principles
+                About Us
               </button>
               <button
                 onClick={() => handleNavClick("#portfolio")}
-                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${activeSection === "#portfolio" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                  }`}
+                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${
+                  activeSection === "#portfolio" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+                }`}
               >
                 Portfolio
               </button>
               <button
                 onClick={() => handleNavClick("#contact")}
-                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${activeSection === "#contact" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
-                  }`}
+                className={`text-left font-semibold py-2 border-b border-slate-100 transition-colors ${
+                  activeSection === "#contact" ? "text-blue-600" : "text-slate-700 hover:text-blue-600"
+                }`}
               >
                 Contact
               </button>

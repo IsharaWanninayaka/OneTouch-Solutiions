@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 function Services() {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
+  const ampRef = useRef(null);
+  const cardRefs = useRef([]);
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [ampOffset, setAmpOffset] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
-  // Scroll Intersection Observer
+  // Scroll Intersection Observer for smooth entrance reveal
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -17,8 +19,8 @@ function Services() {
         }
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px",
       }
     );
 
@@ -33,38 +35,95 @@ function Services() {
     };
   }, []);
 
-  // Smooth Scroll-Linked Zig-Zag Parallax & Real-Time '&' Down Motion
+  // 120FPS Smooth Zig-Zag Parallax Engine (RAF + LERP, Zero React Re-render Overhead)
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId = 0;
+    let targetOffset = 0;
+    let currentOffset = 0;
+    let targetAmp = 0;
+    let currentAmp = 0;
+    let isRunning = false;
+
+    const measure = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
 
-      // Check if section is in or near viewport
+      // 1. Mark scrolling active to prevent accidental hover card popups while moving
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 120);
+
+      // 2. Measure parallax target offset when in/near viewport
       if (rect.top < windowHeight && rect.bottom > 0) {
-        // Calculate progress from 0 (entering) to 1 (leaving)
+        const isDesktop = window.innerWidth >= 640;
         const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-        // Amplified parallax travel range (+/- 80px)
-        const offset = (progress - 0.5) * 160;
-        setScrollProgress(offset);
+        
+        // Fluid, balanced zig-zag travel range (+/- 45px on desktop, clean natural on mobile)
+        const travelRange = isDesktop ? 90 : 0;
+        targetOffset = (progress - 0.5) * travelRange;
 
-        // Real-time scroll-driven down movement for '&'
+        // Smooth real-time '&' motion
         const startPoint = windowHeight * 0.92;
         const endPoint = windowHeight * 0.45;
         const currentProgress = (startPoint - rect.top) / (startPoint - endPoint);
-        const clamped = Math.max(0, Math.min(1, currentProgress));
-        setAmpOffset(clamped);
-      } else if (rect.top >= windowHeight) {
-        setAmpOffset(0);
-      } else if (rect.bottom <= 0) {
-        setAmpOffset(1);
+        targetAmp = Math.max(0, Math.min(1, currentProgress));
+      }
+
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(tick);
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    const tick = () => {
+      // Smooth linear interpolation damping (0.08 gives ultra-smooth buttery feel)
+      currentOffset += (targetOffset - currentOffset) * 0.08;
+      currentAmp += (targetAmp - currentAmp) * 0.08;
 
-    return () => window.removeEventListener("scroll", handleScroll);
+      // Apply Zig-Zag vertical motion directly via GPU translate3d without CSS transition conflict
+      cardRefs.current.forEach((el, index) => {
+        if (!el) return;
+        const isEven = index % 2 === 0;
+        // Card 1 & 3 move in one direction, Card 2 & 4 move in the opposite direction
+        const y = isEven ? currentOffset - 15 : -currentOffset + 15;
+        el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+      });
+
+      if (ampRef.current) {
+        const ampY = currentAmp * 22;
+        ampRef.current.style.transform = `translate3d(0, ${ampY.toFixed(2)}px, 0)`;
+      }
+
+      // Continue animating until motion smoothly settles
+      if (
+        Math.abs(targetOffset - currentOffset) > 0.06 ||
+        Math.abs(targetAmp - currentAmp) > 0.005
+      ) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        isRunning = false;
+      }
+    };
+
+    const onScroll = () => {
+      measure();
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    measure();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const services = [
@@ -128,18 +187,18 @@ function Services() {
 
         {/* Section Header */}
         <div
-          className={`text-center max-w-4xl mx-auto mb-12 md:mb-16 transition-all duration-700 ease-out transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+          className={`text-center max-w-4xl mx-auto mb-12 md:mb-16 transition-all duration-700 ease-out transform ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-5 leading-[1.15]">
             Comprehensive Digital{" "}
             <span
+              ref={ampRef}
               style={{
-                transform: `translateY(calc(${ampOffset} * clamp(18px, 2.5vw, 26px)))`,
                 willChange: "transform",
-                transition: "transform 0.1s ease-out",
               }}
-              className="inline-block text-slate-900 font-extrabold select-none"
+              className="inline-block text-slate-900 font-extrabold select-none transform-gpu"
             >
               &
             </span>{" "}
@@ -151,25 +210,22 @@ function Services() {
         </div>
 
         {/* Dynamic Zig-Zag Scroll Parallax Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-7 pb-16 pt-6">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-7 pb-16 pt-6 ${
+            isScrolling ? "scrolling-active pointer-events-none" : ""
+          }`}
+        >
           {services.map((service, index) => {
-            const isEven = index % 2 === 0;
-            // Card 1 & 3 (isEven): Move DOWN (+scrollProgress) as user scrolls down
-            // Card 2 & 4 (!isEven): Move UP (-scrollProgress) as user scrolls down
-            const dynamicOffset = isEven
-              ? scrollProgress - 20
-              : -scrollProgress + 20;
-
             return (
               <div
                 key={service.id}
+                ref={(el) => (cardRefs.current[index] = el)}
                 style={{
-                  transform: isVisible ? `translateY(${dynamicOffset}px)` : "translateY(40px)",
                   opacity: isVisible ? 1 : 0,
-                  transition: "transform 0.12s ease-out, opacity 0.7s ease-out",
+                  transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${index * 80}ms`,
                   willChange: "transform, opacity",
                 }}
-                className="select-none"
+                className="select-none transform-gpu"
               >
                 <article
                   onClick={() => navigate("/start-project")}

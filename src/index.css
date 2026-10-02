@@ -210,11 +210,11 @@ body {
   object-fit: cover;
   border-radius: 1.5rem;
   display: block;
-  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .bedim__article:hover .bedim__img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .bedim__data {
@@ -281,7 +281,7 @@ body {
 }
 
 .bedim__article:not(:hover) .bedim__data {
-  animation: bedim-remove-data 0.5s forwards;
+  animation: bedim-remove-data 0.7s forwards;
 }
 
 /* Bedimcode Keyframes */
@@ -324,4 +324,29 @@ body {
   50% {
     overflow: hidden;
   }
+
+  100% {
+    overflow: hidden;
+  }
+}
+
+/* Prevent hover cards from popping open automatically during active scroll */
+.scrolling-active .bedim__article,
+.scrolling-active .bedim__data {
+  pointer-events: none !important;
+}
+
+/* Hide Spline 3D Viewer Watermarks and Branding Globally */
+spline-viewer::part(logo),
+spline-viewer #logo,
+spline-viewer a[href*="spline"],
+spline-viewer .watermark,
+spline-viewer [id*="watermark"],
+spline-viewer [class*="watermark"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }

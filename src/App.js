@@ -4,8 +4,7 @@ import Loading from './components/Loading'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import TechStack from './components/TechStack'
-import Process from './components/Process'
+import About from './components/About'
 import Portfolio from './components/Portfolio'
 import Services2 from './components/Services2'
 import Contact from './components/Contact'
@@ -34,7 +33,7 @@ function App() {
               <Hero isLoaded={!isLoading} />
               <Services />
               <Services2 />
-              <Process />
+              <About />
               <Portfolio />
               <Contact />
             </main>
