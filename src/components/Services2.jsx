@@ -59,9 +59,8 @@ function Reveal({ children, delay = 0, threshold = 0.15, noBlur = false, classNa
       ref={ref}
       {...rest}
       style={{ transitionDelay: seen ? `${delay}ms` : "0ms" }}
-      className={`transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:blur-0 ${
-        seen ? "opacity-100 translate-y-0 blur-0" : hidden
-      } ${className}`}
+      className={`transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:blur-0 ${seen ? "opacity-100 translate-y-0 blur-0" : hidden
+        } ${className}`}
     >
       {children}
     </div>
@@ -159,7 +158,126 @@ const PAD = "px-6 sm:px-10 lg:px-[7.5%]";
 function Services2() {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [isIdleInView, setIsIdleInView] = useState(false);
+  const splineRef = useRef(null);
+  const sectionRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+
+  // Reliable viewport check function: active ONLY when user has scrolled past / crossed the top border of this card
+  const checkIfInViewport = () => {
+    const el = sectionRef.current;
+    if (!el) return false;
+    const rect = el.getBoundingClientRect();
+    // Loads ONLY after user scrolls past the top border (rect.top <= 100) and card is in view (rect.bottom > 200)
+    return rect.top <= 100 && rect.bottom > 200;
+  };
+
+  useEffect(() => {
+    const updateVisibility = () => {
+      const inView = checkIfInViewport();
+      setIsIdleInView(inView);
+    };
+
+    const handleScroll = () => {
+      // Hide immediately as soon as active scrolling begins
+      setIsIdleInView(false);
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Wait a few seconds (1.3s idle delay) after stopping scroll to show/load
+      scrollTimeoutRef.current = setTimeout(() => {
+        updateVisibility();
+      }, 1300);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+
+    // Initial check on load: wait idle delay before showing if already in view
+    const initTimer = setTimeout(updateVisibility, 1300);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      clearTimeout(initTimer);
+    };
+  }, []);
+
+  // 100% Complete Watermark Elimination: MutationObserver + ShadowRoot style injection + Element deletion
+  useEffect(() => {
+    let observer = null;
+
+    const purgeWatermark = () => {
+      const viewer = splineRef.current;
+      if (!viewer || !viewer.shadowRoot) return;
+      const shadow = viewer.shadowRoot;
+
+      // 1. Remove all logo / watermark / anchor elements immediately
+      const targets = shadow.querySelectorAll(
+        '#logo, a[href*="spline"], [id*="logo"], [class*="logo"], [class*="watermark"], [id*="watermark"], [aria-label*="Spline"]'
+      );
+      targets.forEach((el) => {
+        try {
+          el.remove();
+        } catch {
+          el.style.display = "none";
+        }
+      });
+
+      // 2. Inject overriding stylesheet into ShadowRoot
+      if (!shadow.querySelector("#spline-permanent-hide-style")) {
+        const style = document.createElement("style");
+        style.id = "spline-permanent-hide-style";
+        style.textContent = `
+          #logo,
+          a,
+          a[href*="spline"],
+          .watermark,
+          [class*="watermark"],
+          [id*="watermark"],
+          #spline-watermark,
+          [aria-label*="Spline"] {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transform: scale(0) !important;
+            position: absolute !important;
+            bottom: -9999px !important;
+            right: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            clip-path: inset(100%) !important;
+          }
+        `;
+        shadow.appendChild(style);
+      }
+
+      // 3. Attach MutationObserver to immediately destroy any dynamically re-added elements
+      if (!observer && shadow) {
+        observer = new MutationObserver(() => {
+          const freshTargets = shadow.querySelectorAll(
+            '#logo, a[href*="spline"], [id*="logo"], [class*="logo"], [class*="watermark"]'
+          );
+          freshTargets.forEach((el) => el.remove());
+        });
+        observer.observe(shadow, { childList: true, subtree: true });
+      }
+    };
+
+    purgeWatermark();
+    const interval = setInterval(purgeWatermark, 100);
+    const timeout = setTimeout(() => clearInterval(interval), 8000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+      if (observer) observer.disconnect();
+    };
+  }, []);
 
   const features = [
     {
@@ -261,8 +379,20 @@ function Services2() {
   // Show 2 features at a time, rotating through all 4
   const pages = [features.slice(0, 2), features.slice(2, 4)];
 
+  // Automatically cycle through service pages every 5 seconds (no manual buttons needed)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPage((prev) => (prev + 1) % pages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [pages.length]);
+
   return (
-    <section id="services2" className="py-6 md:py-10 px-3 sm:px-4 bg-white text-slate-900 relative overflow-hidden">
+    <section
+      id="services2"
+      ref={sectionRef}
+      className="py-6 md:py-10 px-3 sm:px-4 bg-white text-slate-900 relative overflow-hidden"
+    >
       {/* Full-width pale-blue card */}
       <Reveal noBlur threshold={0.08} className="relative bg-[#f2f6ff] rounded-[28px] overflow-hidden">
 
@@ -281,7 +411,7 @@ function Services2() {
         <div className="absolute bottom-0 inset-x-0 z-10 hidden sm:block select-none pointer-events-none">
           <div className={`${PAD} flex justify-end`}>
             <div className="relative flex items-center justify-center h-[50px] w-[32%] min-w-[260px] bg-white rounded-t-[24px]">
-              
+
               <Fillet at="br" style={{ left: -R, bottom: 0 }} />
               <Fillet at="bl" style={{ left: "100%", bottom: 0 }} />
             </div>
@@ -289,12 +419,12 @@ function Services2() {
         </div>
 
         {/* Card content */}
-        <div className={`${PAD} pt-32 sm:pt-44 lg:pt-52 pb-28 sm:pb-32`}>
+        <div className={`${PAD} pt-24 sm:pt-28 lg:pt-32 pb-24 sm:pb-28`}>
 
-          {/* Headline row, then offset paragraph + buttons */}
-          <div className="grid grid-cols-1 lg:grid-cols-12">
-            <Reveal delay={150} className="lg:col-span-12 mb-12 lg:mb-18">
-              <h2 className="max-w-[950px] text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-normal sm:font-medium text-slate-900 leading-[1.38] sm:leading-[1.42] lg:leading-[1.44] tracking-[-0.01em]">
+          {/* Headline row + Spline 3D Scene */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-6 lg:gap-8 mb-12 lg:mb-16">
+            <Reveal delay={150} className="lg:col-span-7 xl:col-span-7">
+              <h2 className="max-w-[700px] text-3xl sm:text-4xl md:text-5xl lg:text-[40px] xl:text-[46px] font-normal sm:font-medium text-slate-900 leading-[1.38] sm:leading-[1.42] lg:leading-[1.44] tracking-[-0.01em]">
                 At <InkWord /> Solutions, we <br className="hidden lg:block" />
                 build smart software, AI, <br className="hidden lg:block" />
                 mobile apps, and IoT systems <br className="hidden lg:block" />
@@ -303,6 +433,42 @@ function Services2() {
               </h2>
             </Reveal>
 
+            {/* Spline 3D Scene in top right area: shows ONLY when stopped inside Our Services for a few seconds, hides while scrolling, controllable when visible */}
+            <div className="lg:col-span-5 xl:col-span-5 flex justify-center items-center">
+              <div
+                className={`relative w-full h-[300px] sm:h-[350px] lg:h-[400px] rounded-3xl overflow-hidden flex items-center justify-center select-none ${isIdleInView ? "pointer-events-auto" : "pointer-events-none"
+                  }`}
+              >
+                {/* Subtle soft backdrop radial glow */}
+                <div
+                  className={`absolute w-60 h-60 rounded-full bg-gradient-to-tr from-blue-400/20 via-indigo-300/20 to-sky-300/20 blur-2xl transition-all duration-1000 ease-out pointer-events-none ${isIdleInView ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                    }`}
+                />
+
+                {/* 3D Model wrapper with responsive smooth fade in/out and user interaction controls */}
+                <div
+                  className={`w-full h-full flex items-center justify-center transition-all ${isIdleInView
+                      ? "opacity-100 scale-100 blur-0 translate-y-0 duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-grab active:cursor-grabbing"
+                      : "opacity-0 scale-90 blur-[6px] translate-y-3 duration-300 ease-in pointer-events-none"
+                    }`}
+                >
+                  <div className="w-[108%] h-[108%] flex items-center justify-center -translate-x-[2%] -translate-y-[2%]">
+                    <spline-viewer
+                      ref={splineRef}
+                      url="https://prod.spline.design/crgVw-ZWyyl7KZwf/scene.splinecode"
+                      style={{ width: "100%", height: "100%", outline: "none" }}
+                    ></spline-viewer>
+                  </div>
+                </div>
+
+                {/* Seamless Bottom-Right Watermark Mask matching card background #f2f6ff */}
+                <div className="absolute bottom-0 right-0 w-48 h-16 bg-[#f2f6ff] pointer-events-none z-30" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Row: Offset Paragraph, Buttons & Rotating Features */}
+          <div className="grid grid-cols-1 lg:grid-cols-12">
             <Reveal delay={250} className="lg:col-start-4 lg:col-span-8 flex flex-col">
               <p className="text-slate-800 text-base sm:text-[17px] md:text-lg lg:text-[20px] font-normal leading-[1.65] mb-6">
                 Our core services include Custom Software Development, AI Solutions, Mobile App Development, and Smart IoT & Hardware Solutions. Whether you're launching a new product, streamlining internal operations, or connecting devices to the cloud, our team delivers secure, scalable solutions tailored to your business goals. With a client-focused approach and a commitment to quality, we help organizations turn ideas into working products.
@@ -325,12 +491,10 @@ function Services2() {
               </div>
             </Reveal>
 
-            {/* Rotating features: 2 visible at a time, aligned under the paragraph */}
+            {/* Rotating features: 2 visible at a time, aligned under the paragraph, automated transition */}
             <Reveal
               delay={150}
               className="lg:col-start-4 lg:col-end-13 mt-16 lg:mt-24"
-              onMouseEnter={() => setPaused(true)}
-              onMouseLeave={() => setPaused(false)}
             >
               <style>{`@keyframes aboutFill { from { width: 0%; } to { width: 100%; } }`}</style>
 
@@ -342,17 +506,15 @@ function Services2() {
                     <div
                       key={pi}
                       aria-hidden={!active}
-                      className={`col-start-1 row-start-1 grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12 ${
-                        active ? "" : "pointer-events-none"
-                      }`}
+                      className={`col-start-1 row-start-1 grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12 ${active ? "" : "pointer-events-none"
+                        }`}
                     >
                       {pair.map((item, i) => (
                         <div
                           key={item.id}
                           style={{ transitionDelay: active ? `${200 + i * 150}ms` : `${i * 60}ms` }}
-                          className={`flex flex-col group transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-                            active ? "opacity-100 translate-y-0 blur-0" : `opacity-0 blur-[3px] ${hiddenShift}`
-                          }`}
+                          className={`flex flex-col group transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${active ? "opacity-100 translate-y-0 blur-0" : `opacity-0 blur-[3px] ${hiddenShift}`
+                            }`}
                         >
                           <h3 className="text-lg sm:text-xl lg:text-2xl font-normal text-slate-900 tracking-tight mb-3 group-hover:text-blue-600 transition-colors">
                             {item.title}
@@ -370,27 +532,24 @@ function Services2() {
                 })}
               </div>
 
-              {/* Progress bars: auto-advance, pause on hover, click to jump */}
-              <div className="flex items-center gap-2 mt-10">
+              {/* Automated Progress Indicator Bars (Visual progress, no manual buttons) */}
+              <div className="flex items-center gap-2 mt-10 pointer-events-none select-none">
                 {pages.map((_, i) => (
-                  <button
+                  <div
                     key={i}
-                    onClick={() => setPage(i)}
-                    aria-label={`Show services ${i * 2 + 1} and ${i * 2 + 2}`}
+                    aria-label={`Service slide ${i + 1}`}
                     className="relative h-[3px] w-12 rounded-full bg-blue-600/15 overflow-hidden"
                   >
                     {i === page && (
                       <span
                         key={page}
-                        onAnimationEnd={() => setPage((p) => (p + 1) % pages.length)}
                         style={{
-                          animation: "aboutFill 6s linear forwards",
-                          animationPlayState: paused ? "paused" : "running",
+                          animation: "aboutFill 5s linear forwards",
                         }}
                         className="absolute inset-y-0 left-0 rounded-full bg-blue-600"
                       />
                     )}
-                  </button>
+                  </div>
                 ))}
               </div>
             </Reveal>
