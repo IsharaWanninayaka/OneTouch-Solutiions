@@ -8,6 +8,7 @@ import About from './components/About'
 import Portfolio from './components/Portfolio'
 import Services2 from './components/Services2'
 import Contact from './components/Contact'
+import GoogleReviews from './components/GoogleReviews'
 import Footer from './components/Footer'
 import StartProject from './pages/StartProject'
 import ViewOurWork from './pages/ViewOurWork'
@@ -36,6 +37,7 @@ function App() {
               <About />
               <Portfolio />
               <Contact />
+              <GoogleReviews />
             </main>
           } />
           <Route path="/get-quote" element={<GetQuote />} />

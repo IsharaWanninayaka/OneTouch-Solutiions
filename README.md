@@ -1,70 +1,158 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🌐 OneTouch Solutions
 
-## Available Scripts
+### **Architecting Scalable Web, Mobile, Cloud & Embedded IoT Ecosystems**
 
-In the project directory, you can run:
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Version](https://img.shields.io/badge/version-v1.1-blue.svg)](https://github.com/IsharaWanninayaka/OneTouch-Solutiions)
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](#)
 
-### `npm start`
+<p align="center">
+  <b>OneTouch Solutions</b> is a next-generation enterprise technology platform delivering high-performance, resilient digital ecosystems for modern organizations globally.
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+</div>
 
-### `npm test`
+## 📌 Table of Contents
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Overview](#-overview)
+- [Key Core Capabilities](#-key-core-capabilities)
+- [Interactive UI & Architecture Highlights](#-interactive-ui--architecture-highlights)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Available Scripts](#-available-scripts)
+- [Architectural Standards](#-architectural-standards)
+- [Authors & Contact](#-authors--contact)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🌟 Overview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**OneTouch Solutions** engineers enterprise-grade software platforms, mobile applications, cloud infrastructures, and embedded IoT hardware systems. Built with modern React architecture, precision typography, responsive fluid layouts, and bespoke SVG micro-interactions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🚀 Key Core Capabilities
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Enterprise Web & Cloud Platforms**: High-concurrency web applications, distributed cloud architectures, and microservices.
+- **Intelligent Mobile Ecosystems**: Native & cross-platform mobile apps for iOS and Android powered by Flutter and React Native.
+- **Smart IoT & Hardware Engineering**: Custom firmware, microcontroller sensor integration (ESP32 / C++), telemetry pipelines, and real-time remote device monitoring.
+- **Custom ERP, CRM & Business Automation**: Tailor-made workflow engines, inventory tracking, financial analytics, and centralized dashboards.
+- **AI Integration & Data Intelligence**: Machine learning workflows, NLP assistants, and automated data pipelines.
+- **Robust Security & High Availability**: Zero-trust architecture, OWASP-compliant hardening, and 99.9% uptime standard.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🎨 Interactive UI & Architecture Highlights
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Custom Silhouette Image Framing**: Complex geometric SVG path clip-mask with a 3D depth-layered background typewriter indicator (`ABOUT US`).
+- **Smooth Scroll-Driven Outline Reveal**: Silk-smooth `translate(16px, 16px)` frame slide-out that unlocks seamlessly when the section enters the viewport.
+- **Minimalist Engineering Spec List**: Clean monospace index badges (`01`-`04`) with interactive hover states.
+- **Line-by-Line Spec Rows**: Split 12-column editorial grid for Value Highlights (`EXECUTION`, `RELIABILITY`, `GOVERNANCE`).
+- **Live Viewport Number Counters**: Single-trigger ease-out live counting numbers (`CountUpNumber`) that animate only upon visual revelation.
+- **Viewport Anchor Line Scroll-Spy**: Dynamic navbar underline tracking anchored to 35% viewport threshold for 100% active state accuracy.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠 Tech Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Frontend**: React 18, React Router v6
+- **Styling**: Tailwind CSS, PostCSS, Vanilla CSS Modules
+- **Icons & Typography**: Font Awesome 6, Modern Google Fonts (Inter / Outfit)
+- **Tooling**: Webpack (Create React App), Babel, ESLint
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📁 Project Structure
 
-### Analyzing the Bundle Size
+```bash
+OneTouch-Solutiions/
+├── public/
+│   ├── images/              # Assets (office photos, team, brand logos)
+│   ├── favicon.ico
+│   └── index.html           # HTML template & Font Awesome CDN
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx       # Viewport-anchored navbar & mobile menu
+│   │   ├── Hero.jsx         # Hero showcase & dynamic CTA
+│   │   ├── About.jsx        # Sticky silhouette photo, spec list & live stats
+│   │   ├── Services.jsx     # Core enterprise service offerings
+│   │   ├── Services2.jsx    # Advanced engineering capabilities
+│   │   ├── Contact.jsx      # Interactive project inquiry form
+│   │   └── Footer.jsx       # Footer & legal links
+│   ├── App.js               # Route orchestration & layout wrapper
+│   ├── index.css            # Tailwind directives, animations & custom styles
+│   └── index.js             # React DOM root render
+├── package.json
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🏁 Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Prerequisites
 
-### Advanced Configuration
+- [Node.js](https://nodejs.org/) (v16.x, v18.x, or later)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Installation
 
-### Deployment
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/IsharaWanninayaka/OneTouch-Solutiions.git
+   cd OneTouch-Solutiions
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-### `npm run build` fails to minify
+3. **Start the local development server**:
+   ```bash
+   npm start
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 📜 Available Scripts
+
+| Command | Description |
+| :--- | :--- |
+| `npm start` | Runs the development server at `http://localhost:3000` with hot-reloading |
+| `npm test` | Launches the test runner in interactive watch mode |
+| `npm run build` | Builds the minified and optimized production bundle into `/build` |
+| `npm run eject` | Ejects Create React App configuration *(Irreversible)* |
+
+---
+
+## 📐 Architectural Standards
+
+| Principle | Specification |
+| :--- | :--- |
+| **01 Precision Engineering** | Zero-defect clean architecture, modular microservices, and CI/CD automation |
+| **02 Security by Design** | Zero-trust protocols, end-to-end data encryption, and OWASP compliance |
+| **03 Agile Speed & Transparency** | Bi-weekly milestone sprints and rapid time-to-market without technical debt |
+| **04 100% In-House Squads** | Dedicated senior software engineers with 100% client IP ownership |
+
+---
+
+## 👥 Authors & Contact
+
+**OneTouch Solutions Engineering Team**
+- **GitHub**: [@IsharaWanninayaka](https://github.com/IsharaWanninayaka)
+- **Website**: [OneTouch Solutions](https://onetouch-solutions.com)
+- **Inquiries**: info@onetouch-solutions.com
+
+---
+
+<div align="center">
+  <sub>© 2026 OneTouch Solutions. All rights reserved.</sub>
+</div>
