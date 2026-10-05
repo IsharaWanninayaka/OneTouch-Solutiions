@@ -306,11 +306,10 @@ function About() {
                 <svg
                   viewBox="0 0 774 699"
                   preserveAspectRatio="none"
-                  className={`absolute inset-0 w-full h-full overflow-visible pointer-events-none z-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                    isLineVisible
+                  className={`absolute inset-0 w-full h-full overflow-visible pointer-events-none z-0 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isLineVisible
                       ? "translate-x-4 translate-y-4 opacity-100"
                       : "translate-x-0 translate-y-0 opacity-0"
-                  }`}
+                    }`}
                   aria-hidden="true"
                 >
                   <path
@@ -403,9 +402,9 @@ function About() {
             {/* Top Bold Headline */}
             <div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-extrabold text-slate-900 tracking-tight leading-[1.12] mb-5">
-                WE ENGINEER <br />
+                <span className="mr-3 sm:mr-4">WE</span>ENGINEER <br />
                 INTELLIGENT <br />
-                ENTERPRISE SYSTEMS.
+                <span className="mr-3 sm:mr-4">ENTERPRISE</span>SYSTEMS.
               </h2>
 
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
