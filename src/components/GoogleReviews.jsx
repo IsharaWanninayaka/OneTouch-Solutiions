@@ -273,7 +273,7 @@ function GoogleReviews() {
       ref={sectionRef}
       id="reviews"
       aria-label="Customer Testimonials"
-      className="relative w-full bg-white text-slate-900 py-20 md:py-24 px-4 sm:px-6 overflow-hidden select-none border-t border-slate-100"
+      className="relative w-full bg-white text-slate-900 py-20 md:py-24 px-4 sm:px-6 overflow-hidden select-none border-t border-slate-100 rounded-b-[36px] sm:rounded-b-[52px] md:rounded-b-[68px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] z-10"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={() => setIsHovered(true)}
@@ -368,8 +368,8 @@ function GoogleReviews() {
                   key={rev.id}
                   onClick={() => handleSelectReview(idx)}
                   className={`w-9 h-9 rounded-full flex-shrink-0 transition-all duration-300 ${isActive
-                      ? "ring-2 ring-indigo-600 scale-110 shadow-md"
-                      : "opacity-60 hover:opacity-100"
+                    ? "ring-2 ring-indigo-600 scale-110 shadow-md"
+                    : "opacity-60 hover:opacity-100"
                     }`}
                 >
                   <img
@@ -384,7 +384,7 @@ function GoogleReviews() {
 
           {/* Large Central Avatar Circle with Google 4-Color Arc & Letter-by-Letter Morphing Badge */}
           <div className="relative mb-4 flex items-center justify-center">
-            
+
             {/* Google 4-Color Dashed Arc Trail (Sweeps around the bottom-half rim into the 'G' logo) */}
             <svg
               className="absolute -inset-3 sm:-inset-4 w-[calc(100%+24px)] sm:w-[calc(100%+32px)] h-[calc(100%+24px)] sm:h-[calc(100%+32px)] pointer-events-none z-10 overflow-visible"
@@ -415,9 +415,8 @@ function GoogleReviews() {
                 <img
                   src={currentReview.image}
                   alt={currentReview.name}
-                  className={`w-full h-full object-cover rounded-full transition-all duration-300 ease-out transform ${
-                    isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
-                  }`}
+                  className={`w-full h-full object-cover rounded-full transition-all duration-300 ease-out transform ${isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+                    }`}
                   onError={(e) => {
                     e.target.style.display = "none";
                     e.target.nextSibling.style.display = "flex";
@@ -435,12 +434,11 @@ function GoogleReviews() {
             <div
               key={animKey}
               onClick={() => triggerGoogleAnimation()}
-              
-              className={`absolute -bottom-1 -right-2 sm:bottom-0.5 sm:right-0 z-30 bg-white rounded-full shadow-[0_8px_25px_rgba(66,133,244,0.22)] ring-2 ring-slate-100/90 flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-                googlePhase === "spelling"
+
+              className={`absolute -bottom-1 -right-2 sm:bottom-0.5 sm:right-0 z-30 bg-white rounded-full shadow-[0_8px_25px_rgba(66,133,244,0.22)] ring-2 ring-slate-100/90 flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${googlePhase === "spelling"
                   ? "w-32 sm:w-36 h-9 sm:h-10 px-3.5 shadow-blue-500/25"
                   : "w-9 h-9 sm:w-10 sm:h-10 px-0 hover:scale-115"
-              }`}
+                }`}
             >
               {/* 1. Letter-by-Letter "Google" Wordmark View */}
               {googlePhase === "spelling" && (
@@ -491,8 +489,8 @@ function GoogleReviews() {
           {/* Testimonial Quote Speech Area */}
           <div
             className={`relative max-w-lg sm:max-w-xl mx-auto px-4 sm:px-6 text-center transition-all duration-300 ease-out transform ${isTransitioning
-                ? "opacity-0 translate-y-2"
-                : "opacity-100 translate-y-0"
+              ? "opacity-0 translate-y-2"
+              : "opacity-100 translate-y-0"
               }`}
           >
             {/* Top Left Brand Gradient Quote Mark */}
