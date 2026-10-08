@@ -85,7 +85,7 @@ function Contact() {
       console.error("Email send failed:", error);
       setErrorMessage(
         error.message ||
-          "Unable to send message. Please check your network and try again."
+        "Unable to send message. Please check your network and try again."
       );
       setShowError(true);
     } finally {
@@ -100,7 +100,7 @@ function Contact() {
       <div className="glow-orb w-[450px] h-[450px] bg-indigo-600/10 bottom-0 right-0"></div>
 
       <div className="container px-4 mx-auto md:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
@@ -115,12 +115,12 @@ function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Info Panel */}
           <div className="lg:col-span-5 space-y-6">
             <div className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-2xl">
               <h3 className="text-2xl font-bold text-white mb-6">Contact Details</h3>
-              
+
               <div className="space-y-6 text-slate-300">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
