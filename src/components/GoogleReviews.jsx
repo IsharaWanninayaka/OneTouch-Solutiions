@@ -273,7 +273,7 @@ function GoogleReviews() {
       ref={sectionRef}
       id="reviews"
       aria-label="Customer Testimonials"
-      className="relative w-full bg-white text-slate-900 py-20 md:py-24 px-4 sm:px-6 overflow-hidden select-none border-t border-slate-100 rounded-b-[36px] sm:rounded-b-[52px] md:rounded-b-[68px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] z-10"
+      className="relative w-full bg-white text-slate-900 py-20 md:py-24 px-4 sm:px-6 overflow-hidden select-none border-t border-slate-100 z-10"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onTouchStart={() => setIsHovered(true)}
