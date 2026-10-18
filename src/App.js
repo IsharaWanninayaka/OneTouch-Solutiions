@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Loading from './components/Loading'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import About from './components/About'
-import Portfolio from './components/Portfolio'
+// import Portfolio from './components/Portfolio'
 import Services2 from './components/Services2'
 import Contact from './components/Contact'
 import GoogleReviews from './components/GoogleReviews'
@@ -20,44 +20,55 @@ import CookiePolicy from './pages/CookiePolicy'
 import CookieConsent from './pages/CookieConsentBanner'
 import ScrollToTop from './components/ScrollToTop'
 
+function AppLayout({ isLoading }) {
+  const location = useLocation();
+  const isGetQuotePage = location.pathname === "/get-quote";
+
+  return (
+    <div className="App bg-slate-950 min-h-screen font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+      {/* Main Content Layout */}
+      <div className="relative z-10 bg-white">
+        {/* Hide header on /get-quote */}
+        {!isGetQuotePage && <Header />}
+        <Routes>
+          <Route path="/" element={
+            <main>
+              <Hero isLoaded={!isLoading} />
+              <Services />
+              <Services2 />
+              <About />
+              {/* Our Proven Portfolio */}
+              {/* <Portfolio /> */}
+              <Contact />
+              <GoogleReviews />
+            </main>
+          } />
+          <Route path="/get-quote" element={<GetQuote />} />
+          <Route path="/more-about" element={<MoreAbout />} />
+          <Route path="/start-project" element={<StartProject />} />
+          <Route path="/our-work" element={<ViewOurWork />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+        </Routes>
+        {/* Hide footer on /get-quote */}
+        {!isGetQuotePage && <Footer />}
+        <CookieConsent />
+      </div>
+
+      {/* Global floating scroll button */}
+      <ScrollToTop />
+    </div>
+  );
+}
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Router>
       {isLoading && <Loading duration={3500} onComplete={() => setIsLoading(false)} />}
-      <div className="App bg-slate-950 min-h-screen font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
-
-        {/* Main Content Layout with Standard Flow Footer */}
-        <div className="relative z-10 bg-white">
-          <Header />
-          <Routes>
-            <Route path="/" element={
-              <main>
-                <Hero isLoaded={!isLoading} />
-                <Services />
-                <Services2 />
-                <About />
-                <Portfolio />
-                <Contact />
-                <GoogleReviews />
-              </main>
-            } />
-            <Route path="/get-quote" element={<GetQuote />} />
-            <Route path="/more-about" element={<MoreAbout />} />
-            <Route path="/start-project" element={<StartProject />} />
-            <Route path="/our-work" element={<ViewOurWork />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/cookie-policy" element={<CookiePolicy />} />
-          </Routes>
-          <Footer />
-          <CookieConsent />
-        </div>
-
-        {/* Global floating scroll button */}
-        <ScrollToTop />
-      </div>
+      <AppLayout isLoading={isLoading} />
     </Router>
   );
 }

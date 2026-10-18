@@ -152,178 +152,154 @@ function ErrorPopup({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/50 backdrop-blur-md"
       onClick={handleOverlayClick}
     >
       <div
-        className={`${sizeClasses[size]} w-full bg-white rounded-xl shadow-2xl transform transition-all duration-300 ${animationClasses.shake} ring-2 ${config.ring}`}
+        className={`${sizeClasses[size]} relative w-full bg-white rounded-3xl shadow-2xl shadow-rose-500/10 border-2 border-rose-500/80 p-6 sm:p-8 overflow-hidden transform transition-all duration-300 ${animationClasses.shake}`}
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className={`bg-gradient-to-r ${config.gradient} p-6 rounded-t-xl`}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg bg-opacity-20">
-                <i className={`${config.icon} text-white text-xl`}></i>
-              </div>
-              <div className="ml-4">
-                <h2 className="text-xl font-bold text-white">{title}</h2>
-                <p className={`mt-1 text-sm ${config.headerText}`}>
-                  {type === "critical"
-                    ? "Critical System Error"
-                    : type === "network"
-                    ? "Connection Issue"
-                    : type === "validation"
-                    ? "Validation Error"
-                    : "Application Error"}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={handleClose}
-              className="flex items-center justify-center w-8 h-8 transition-all duration-200 bg-white rounded-full bg-opacity-20 hover:bg-opacity-30 group hover:scale-110"
-            >
-              <i className="text-sm text-white fas fa-times"></i>
-            </button>
-          </div>
+        {/* Subtle Ambient Glow */}
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-rose-500/10 rounded-full blur-2xl pointer-events-none" />
+
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition-all duration-200 z-10"
+          aria-label="Close"
+        >
+          <i className="fas fa-times text-xs"></i>
+        </button>
+
+        {/* Brand Icon Badge */}
+        <div className="w-16 h-16 rounded-full bg-rose-50 text-rose-600 border border-rose-200/80 flex items-center justify-center mx-auto text-2xl mb-4 shadow-sm">
+          <i className={config.icon}></i>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
-          <div className="flex items-start mb-4">
-            <i
-              className={`${config.icon} ${config.iconColor} text-2xl mt-1 mr-4`}
-            ></i>
-            <div className="flex-1">
-              <p className="text-lg font-medium leading-relaxed text-gray-800">
-                {message}
-              </p>
+        {/* Title & Type */}
+        <div className="text-center mb-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{title}</h2>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-rose-600">
+            {type === "critical"
+              ? "Critical System Error"
+              : type === "network"
+              ? "Connection Issue"
+              : type === "validation"
+              ? "Validation Notice"
+              : "Application Notice"}
+          </p>
+        </div>
 
-              {/* Error Details */}
-              {errorDetails && (
-                <div className="mt-4">
-                  <button
-                    onClick={() => setShowErrorDetails(!showErrorDetails)}
-                    className={`flex items-center text-sm font-medium transition duration-200 hover:${config.text} ${config.lightText}`}
-                  >
-                    <i
-                      className={`fas fa-chevron-${
-                        showErrorDetails ? "up" : "down"
-                      } mr-2`}
-                    ></i>
-                    {showErrorDetails ? "Hide" : "Show"} Error Details
-                  </button>
+        {/* Message */}
+        <p className="text-slate-600 text-sm sm:text-base leading-relaxed text-center mb-5">
+          {message}
+        </p>
 
-                  {showErrorDetails && (
-                    <div
-                      className={`p-4 mt-3 border rounded-lg ${config.bg} ${config.border}`}
-                    >
-                      <pre className="p-3 overflow-x-auto font-mono text-xs text-gray-700 whitespace-pre-wrap bg-white bg-opacity-50 border rounded">
-                        {typeof errorDetails === "string"
-                          ? errorDetails
-                          : JSON.stringify(errorDetails, null, 2)}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Suggested Actions */}
-          <div className="p-4 mt-6 border border-red-200 rounded-lg bg-red-50">
-            <h4 className="flex items-center mb-3 font-semibold text-red-800">
-              <i className="mr-2 text-red-500 fas fa-lightbulb"></i>
-              Quick Solutions
-            </h4>
-            <ul className="space-y-2 text-sm text-red-700">
-              {type === "network" && (
-                <>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-plug"></i>
-                    Check your internet connection and try again
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-sync-alt"></i>
-                    Refresh the page and retry the operation
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-clock"></i>
-                    Wait a few minutes and try again
-                  </li>
-                </>
-              )}
-              {type === "validation" && (
-                <>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-edit"></i>
-                    Review and correct the highlighted fields
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-check-circle"></i>
-                    Ensure all required information is provided
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-file-alt"></i>
-                    Follow the specified format guidelines
-                  </li>
-                </>
-              )}
-              {(type === "error" || type === "critical") && (
-                <>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-redo"></i>
-                    Refresh the page and try the action again
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-broom"></i>
-                    Clear your browser cache and cookies
-                  </li>
-                  <li className="flex items-center">
-                    <i className="mr-3 text-xs text-red-400 fas fa-headset"></i>
-                    Contact support if the problem continues
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 mt-6">
-            {showRetryButton && (
-              <button
-                onClick={handleRetry}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 flex items-center shadow-lg ${config.button}`}
-              >
-                <i className="mr-2 fas fa-redo"></i>
-                {retryButtonText}
-              </button>
-            )}
-
-            {showReportButton && (
-              <button
-                onClick={handleReport}
-                className="flex items-center px-6 py-3 font-semibold text-white transition-all duration-200 bg-gray-700 rounded-lg shadow-lg hover:bg-gray-800 hover:scale-105"
-              >
-                <i className="mr-2 fas fa-bug"></i>
-                {reportButtonText}
-              </button>
-            )}
-
+        {/* Error Details Accordion */}
+        {errorDetails && (
+          <div className="mb-5 text-left">
             <button
-              onClick={handleClose}
-              className="flex items-center px-6 py-3 font-semibold text-gray-700 transition-all duration-200 bg-white border border-gray-300 rounded-lg shadow-lg hover:bg-gray-50 hover:scale-105"
+              onClick={() => setShowErrorDetails(!showErrorDetails)}
+              className="flex items-center text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
             >
-              <i className="mr-2 fas fa-times"></i>
-              Dismiss
+              <i className={`fas fa-chevron-${showErrorDetails ? "up" : "down"} mr-1.5`}></i>
+              {showErrorDetails ? "Hide" : "Show"} Error Details
             </button>
+
+            {showErrorDetails && (
+              <div className="p-3 mt-2 border border-slate-200 rounded-xl bg-slate-50">
+                <pre className="overflow-x-auto font-mono text-xs text-slate-700 whitespace-pre-wrap">
+                  {typeof errorDetails === "string"
+                    ? errorDetails
+                    : JSON.stringify(errorDetails, null, 2)}
+                </pre>
+              </div>
+            )}
           </div>
+        )}
+
+        {/* Suggested Quick Solutions */}
+        <div className="p-4 mb-6 border border-slate-200 rounded-2xl bg-slate-50 text-left">
+          <h4 className="flex items-center mb-2.5 text-xs font-bold uppercase tracking-wider text-slate-700">
+            <i className="mr-2 text-rose-500 fas fa-lightbulb"></i>
+            Quick Suggestions
+          </h4>
+          <ul className="space-y-1.5 text-xs text-slate-600">
+            {type === "network" && (
+              <>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-slate-400 fas fa-plug"></i>
+                  Check your internet connection and try again
+                </li>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-slate-400 fas fa-sync-alt"></i>
+                  Refresh the page and retry the operation
+                </li>
+              </>
+            )}
+            {type === "validation" && (
+              <>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-blue-500 fas fa-edit"></i>
+                  Please fill in all required fields marked with an asterisk (*)
+                </li>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-blue-500 fas fa-check-circle"></i>
+                  Verify that your email address and phone number are formatted correctly
+                </li>
+              </>
+            )}
+            {(type === "error" || type === "critical") && (
+              <>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-slate-400 fas fa-redo"></i>
+                  Refresh the page and try submitting again
+                </li>
+                <li className="flex items-center">
+                  <i className="mr-2 text-xs text-slate-400 fas fa-envelope"></i>
+                  Or reach out directly via contact@onetouchsolutions.lk
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+
+        {/* Action Buttons (Pill buttons matching website) */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {showRetryButton && (
+            <button
+              onClick={handleRetry}
+              className="px-7 py-2.5 sm:py-3 rounded-full font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/40 transition-all duration-200 text-xs sm:text-sm active:scale-95 flex items-center justify-center gap-2"
+            >
+              <i className="fas fa-redo text-xs"></i>
+              {retryButtonText}
+            </button>
+          )}
+
+          {showReportButton && (
+            <button
+              onClick={handleReport}
+              className="px-6 py-2.5 sm:py-3 rounded-full font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-all duration-200 text-xs sm:text-sm active:scale-95 flex items-center justify-center gap-2"
+            >
+              <i className="fas fa-bug text-xs"></i>
+              {reportButtonText}
+            </button>
+          )}
+
+          <button
+            onClick={handleClose}
+            className="px-7 py-2.5 sm:py-3 rounded-full font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-all duration-200 text-xs sm:text-sm active:scale-95 flex items-center justify-center gap-2"
+          >
+            <i className="fas fa-times text-xs"></i>
+            Dismiss
+          </button>
         </div>
 
         {/* Progress Bar for Auto Close */}
         {autoClose && (
-          <div className="w-full h-1.5 overflow-hidden bg-gray-300 rounded-b-xl">
+          <div className="w-full h-1.5 overflow-hidden bg-slate-100 rounded-full mt-6">
             <div
-              className={`h-full bg-gradient-to-r ${config.gradient} transition-all duration-${closeTimeout}`}
+              className="h-full bg-rose-500 rounded-full"
               style={{
                 width: isLeaving ? "0%" : "100%",
                 transition: `width ${closeTimeout}ms linear`,
