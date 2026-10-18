@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+/*
+============================================================
+OUR PROVEN PORTFOLIO SECTION (COMMENTED OUT)
+============================================================
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Portfolio() {
@@ -56,7 +60,7 @@ function Portfolio() {
     <section id="portfolio" className="py-24 bg-slate-900 text-white relative tech-grid-pattern">
       <div className="container px-4 mx-auto md:px-8">
         
-        {/* Header */}
+        {/ * Header * /}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <i className="fas fa-briefcase mr-2"></i> Featured Works
@@ -68,7 +72,7 @@ function Portfolio() {
             Explore recent projects engineered for our clients across web platforms, mobile apps, and hardware solutions.
           </p>
 
-          {/* Filters */}
+          {/ * Filters * /}
           <div className="flex flex-wrap justify-center gap-2 mt-8">
             <button
               onClick={() => setFilter("all")}
@@ -105,14 +109,14 @@ function Portfolio() {
           </div>
         </div>
 
-        {/* Grid */}
+        {/ * Grid * /}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="rounded-2xl bg-slate-800/60 border border-slate-700/60 overflow-hidden hover:border-blue-500/50 transition-all duration-300 group flex flex-col justify-between"
             >
-              {/* Image Box */}
+              {/ * Image Box * /}
               <div className="relative h-64 overflow-hidden bg-slate-950">
                 <img
                   src={project.image}
@@ -125,7 +129,7 @@ function Portfolio() {
                 </span>
               </div>
 
-              {/* Body */}
+              {/ * Body * /}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                   {project.title}
@@ -134,13 +138,13 @@ function Portfolio() {
                   {project.description}
                 </p>
 
-                {/* Metrics Pill */}
+                {/ * Metrics Pill * /}
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 text-blue-300 text-xs font-medium mb-4">
                   <i className="fas fa-chart-line text-blue-400"></i>
                   <span>{project.metrics}</span>
                 </div>
 
-                {/* Tech Badges & Link */}
+                {/ * Tech Badges & Link * /}
                 <div className="pt-4 border-t border-slate-700/50 flex items-center justify-between">
                   <div className="flex flex-wrap gap-1.5">
                     {project.tech.map((t, idx) => (
@@ -163,7 +167,7 @@ function Portfolio() {
           ))}
         </div>
 
-        {/* View All Button */}
+        {/ * View All Button * /}
         <div className="mt-14 text-center">
           <button
             onClick={() => navigate("/our-work")}
@@ -176,6 +180,12 @@ function Portfolio() {
       </div>
     </section>
   );
+}
+============================================================
+*/
+
+function Portfolio() {
+  return null;
 }
 
 export default Portfolio;
